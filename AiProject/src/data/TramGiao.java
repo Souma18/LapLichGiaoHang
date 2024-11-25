@@ -9,14 +9,6 @@ public class TramGiao {
 	private ToaDo toaDo;
 	private List<DonHang>listDonHang;
 
-	
-
-	
-
-
-
-
-
 	public TramGiao(int id, String tenTram, double chiPhi, ToaDo toaDo, List<DonHang> listDonHang) {
 		this.id = id;
 		this.tenTram = tenTram;
@@ -87,9 +79,19 @@ public class TramGiao {
 
 
 
-	@Override
-	public String toString() {
-		return "TramGiao [tenTram=" + tenTram + "]";
-	}
+	   public void themDonHang(DonHang donHang) {
+	        this.listDonHang.add(donHang);
+	    }
+
+	    // Xóa đơn hàng khỏi trạm
+	    public void xoaDonHang(DonHang donHang) {
+	        this.listDonHang.remove(donHang);
+	    }
+
+	    // Hiển thị thông tin trạm giao và các đơn hàng
+	    @Override
+	    public String toString() {
+	        return "TramGiao [tenTram=" + tenTram + ", danhSachDonHang=" + listDonHang + "]";
+	    }
 	
 }

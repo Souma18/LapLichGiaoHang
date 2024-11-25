@@ -9,8 +9,8 @@ import data.Xe;
 
 public class ModelCumGiao {
 	private List<CumGiao>listCumGiao;
-	private Map<Integer,List<DonHang>>mapDonHangCumGiao;
-	private Map<Integer,List<Xe>>mapXeCumGiao;
+	private Map<Integer,List<DonHang>> mapDonHangCumGiao;
+	private Map<Integer,List<Xe>> mapXeCumGiao;
 	public ModelCumGiao(List<CumGiao> listCumGiao, Map<Integer, List<DonHang>> mapDonHangCumGiao,
 			Map<Integer, List<Xe>> mapXeCumGiao) {
 		this.listCumGiao = listCumGiao;
@@ -35,7 +35,10 @@ public class ModelCumGiao {
 	public void setMapXeCumGiao(Map<Integer, List<Xe>> mapXeCumGiao) {
 		this.mapXeCumGiao = mapXeCumGiao;
 	}
-	
+	//phan chia don hang ve dung tram giao
+		public void phanChiaDon() {
+			
+		}
 	//phan cum
 
 }

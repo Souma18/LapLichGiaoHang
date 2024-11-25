@@ -5,6 +5,7 @@ import data.NSX;
 public class Model {
 	private ModelCumGiao modelCumGiao;
 	private ModelTuyenDuong modelTuyenDuong;
+	private ModelSapXep modelSapXep;
 	private NSX nxs;
 	public Model(ModelCumGiao modelCumGiao, ModelTuyenDuong modelTuyenDuong, NSX nxs) {
 		this.modelCumGiao = modelCumGiao;
