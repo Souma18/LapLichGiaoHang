@@ -1,4 +1,4 @@
-package model_AStar;
+package findingPath;
 
 import java.util.List;
 
