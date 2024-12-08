@@ -57,7 +57,7 @@ public class PhanPhoi {
 				for (TramGiao t : tuyenDuongDuocTaoRa.getTuyenDuong()) {
 					tentram += t.getTenTram() + " ";
 				}
-				System.out.println("Xe: " + tuyenDuongDuocTaoRa.getXe().getId() + " ,tuyen: " + tentram);
+				System.out.println("Xe: " + tuyenDuongDuocTaoRa.getXe().getId() + " ,tram: " + tentram);
 			}
 		}
 	}

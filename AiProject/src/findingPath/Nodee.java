@@ -13,11 +13,6 @@ public class Nodee implements Comparable<Nodee>{
 	private Nodee parent;
 	
 
-	// mahattan
-	public double MahattanAl(TramGiao bd, TramGiao dich) {
-		return Math.sqrt(Math.pow(bd.getToaDo().getX() - dich.getToaDo().getX(), 2)
-				+ Math.pow(bd.getToaDo().getY() - dich.getToaDo().getY(), 2));
-	}
 
 
 
