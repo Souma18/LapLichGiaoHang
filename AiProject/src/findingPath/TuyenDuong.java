@@ -483,6 +483,9 @@ public class TuyenDuong {
 		BanDo bd = new BanDo(listKC);
 		t.setBanDo(bd);
 		t.addTuyenDuong(c);
+		
+		
+		System.out.println("check in PhanPhoi class");
 //		TramGiao t1 = new TramGiao(1, "1", 0, null, null);
 //		TramGiao t2 = new TramGiao(2, "2", 0, null, null);
 //		TramGiao t3 = new TramGiao(3, "3", 0, null, null);
