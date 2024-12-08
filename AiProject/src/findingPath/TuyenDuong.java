@@ -13,15 +13,11 @@ import data.TramGiao;
 
 public class TuyenDuong {
 	static List<List<Nodee>> allPaths = new LinkedList<>();
-	private List<KhoangCachCacTram>listDistance;
+	private BanDo banDo;
 	private List<Nodee> listNode;
 
 	public List<Nodee> getListNode() {
 		return listNode;
-	}
-
-	public TuyenDuong(List<KhoangCachCacTram> listDistance) {
-		this.listDistance = listDistance;
 	}
 
 	public void setListNode(List<Nodee> listNode) {
@@ -34,6 +30,13 @@ public class TuyenDuong {
 		return listTuyenDuong;
 	}
 
+	public BanDo getBanDo() {
+		return banDo;
+	}
+
+	public void setBanDo(BanDo banDo) {
+		this.banDo = banDo;
+	}
 
 	public void setListTuyenDuong(List<List<TramGiao>> listTuyenDuong) {
 		this.listTuyenDuong = listTuyenDuong;
@@ -470,7 +473,8 @@ public class TuyenDuong {
 		listKC.add(k7);
 		listKC.add(k9);
 		listKC.add(k11);
-		TuyenDuong t = new TuyenDuong(listKC);
+		TuyenDuong t = new TuyenDuong();
+		t.createNodee(new BanDo(listKC));
 
 		CumGiao c = new CumGiao(1);
 		c.addTramGiao(t2);
