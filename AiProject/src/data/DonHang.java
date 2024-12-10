@@ -60,6 +60,7 @@ public class DonHang {
 	public void setGiaTien(double giaTien) {
 		this.giaTien = giaTien;
 	}
+
 	@Override
 	public String toString() {
 		return "DonHang [id=" + id + ", tramGiao=" + tramGiao + ", loaiDon=" + loaiDon + ", trongLuong=" + trongLuong

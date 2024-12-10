@@ -67,6 +67,22 @@ public class CumGiao {
 			this.listTram = cumGiao;
 		}
 
+		public List<TramGiao> getListTram() {
+			return listTram;
+		}
+
+		public void setListTram(List<TramGiao> listTram) {
+			this.listTram = listTram;
+		}
+
+		public List<Xe> getListXe() {
+			return listXe;
+		}
+
+		public void setListXe(List<Xe> listXe) {
+			this.listXe = listXe;
+		}
+
 		@Override
 		public String toString() {
 			return "CumGiao [id=" + id + ", listTram=" + listTram  + ", khoiLuongDon="
