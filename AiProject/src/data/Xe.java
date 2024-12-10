@@ -7,12 +7,12 @@ public class Xe {
 	private int soDonToiDa;
 	private double soDiemDatDuoc;
 
-	public Xe(int id, int bienSo, double sucChuaToiDa, int soDonToiDa, double soDiemDatDuoc) {
+	public Xe(int id, int bienSo, double sucChuaToiDa, int soDonToiDa) {
 		this.id = id;
 		this.bienSo = bienSo;
 		this.sucChuaToiDa = sucChuaToiDa;
 		this.soDonToiDa = soDonToiDa;
-		this.soDiemDatDuoc = soDiemDatDuoc;
+		this.soDiemDatDuoc = 0;
 	}
 	public int getId() {
 		return id;

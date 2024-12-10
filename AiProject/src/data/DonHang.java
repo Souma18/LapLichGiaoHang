@@ -2,12 +2,12 @@ package data;
 
 public class DonHang {
 	private int id;
-	private TramGiao tramGiao;
+	private String tramGiao;
 	private String loaiDon;
 	private double trongLuong;
 	private int giaTri;
 	private double giaTien;
-	public DonHang(int id, TramGiao tramGiao, String loaiDon, double trongLuong, int giaTri, double giaTien) {
+	public DonHang(int id, String tramGiao, String loaiDon, double trongLuong, int giaTri, double giaTien) {
 		this.id = id;
 		this.tramGiao = tramGiao;
 		this.loaiDon = loaiDon;
@@ -15,16 +15,25 @@ public class DonHang {
 		this.giaTri = giaTri;
 		this.giaTien = giaTien;
 	}
+//	test
+	public DonHang(int id, String tramGiao, String loaiDon, double trongLuong) {
+		super();
+		this.id = id;
+		this.tramGiao = tramGiao;
+		this.loaiDon = loaiDon;
+		this.trongLuong = trongLuong;
+	}
+
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public TramGiao getTramGiao() {
+	public String getTramGiao() {
 		return tramGiao;
 	}
-	public void setTramGiao(TramGiao tramGiao) {
+	public void setTramGiao(String tramGiao) {
 		this.tramGiao = tramGiao;
 	}
 	public String getLoaiDon() {
@@ -51,5 +60,11 @@ public class DonHang {
 	public void setGiaTien(double giaTien) {
 		this.giaTien = giaTien;
 	}
+	@Override
+	public String toString() {
+		return "DonHang [id=" + id + ", tramGiao=" + tramGiao + ", loaiDon=" + loaiDon + ", trongLuong=" + trongLuong
+				+ ", giaTri=" + giaTri + ", giaTien=" + giaTien + "]";
+	}
 	
 }
+
