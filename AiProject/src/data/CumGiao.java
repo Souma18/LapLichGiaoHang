@@ -120,4 +120,12 @@ public class CumGiao {
 		}
 		return list;
 	}
+	public TramGiao getTram(String tenTram) {
+		for (TramGiao tramGiao : listTram) {
+			if (tenTram.equals(tramGiao.getTenTram())) {
+				return tramGiao;
+			}
+		}
+		return null;
+	}
 }

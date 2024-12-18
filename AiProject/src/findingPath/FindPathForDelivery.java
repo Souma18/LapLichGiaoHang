@@ -45,7 +45,7 @@ public class FindPathForDelivery {
 		public List<Nodee> createNodee(CumGiao cum, BanDo banDo) {
 			List<Nodee> listNode = new LinkedList<>();
 
-			for (TramGiao t : cum.getCumGiao()) {
+			for (TramGiao t : cum.getListTram()) {
 				Nodee n = new Nodee(t);
 				n.setTram(t);
 				n.setChiPhi(t.getChiPhi());

@@ -41,7 +41,6 @@ public class Model {
 //lấy tuyến đường
 	public TuyenDuongDuocTaoRa tuyenduong() {
 		return null;
-
 	}
 	public static void main(String[] args) {
 		List<DonHang> donHangList = new ArrayList<>();
