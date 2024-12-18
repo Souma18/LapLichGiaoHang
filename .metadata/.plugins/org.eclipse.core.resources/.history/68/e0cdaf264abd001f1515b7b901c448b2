@@ -69,9 +69,6 @@ public class ModelSapXep {
 			// Gắn danh sách đơn hàng vào xe
 			xe.setDsDonHang(danhSachXep);
 
-			// Lưu trạng thái xe vào cụm giao
-			cum.updateXe(xe); // Cập nhật xe với danh sách đơn hàng mới
-
 			// Xóa các đơn hàng đã được sắp xếp khỏi trạm giao
 			for (DonHang dh : danhSachXep) {
 				TramGiao tram = cum.getTram(dh.getTramGiao()); // Tìm trạm của đơn hàng
@@ -79,6 +76,7 @@ public class ModelSapXep {
 					tram.xoaDonHang(dh); // Xóa đơn hàng khỏi trạm
 				}
 			}
+
 		}
 	}
 }

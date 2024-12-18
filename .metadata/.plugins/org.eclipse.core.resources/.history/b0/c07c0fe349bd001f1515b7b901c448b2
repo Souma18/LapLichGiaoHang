@@ -44,8 +44,9 @@ public class ModelSapXep {
 		}
 	}
 
-	// sắp hàng lên xe
+	//sắp hàng lên xe
 	public void sapXepHangLenXe(List<CumGiao> listCumGiao) {
+//		List<CumGiao> list = new ArrayList<CumGiao>();
 		for (CumGiao cum : listCumGiao) {
 			List<Xe> listXe = cum.getListXe();
 			if (listXe.isEmpty()) {
@@ -54,31 +55,34 @@ public class ModelSapXep {
 			}
 
 			Xe xe = listXe.get(0);
-			double sucChuaToiDa = xe.getSucChuaToiDa();
+			double W = xe.getSucChuaToiDa();
 			List<DonHang> allDonHang = new ArrayList<>();
 			List<TramGiao> tramList = cum.getListTram();
 
-			// Tập hợp tất cả đơn hàng từ các trạm giao
 			for (TramGiao tram : tramList) {
 				allDonHang.addAll(tram.getListDonHang());
 			}
 
-			// Gọi hàm knapsack để lấy danh sách đơn hàng phù hợp
-			List<DonHang> danhSachXep = knapsack(sucChuaToiDa, allDonHang);
+			int n = allDonHang.size();
+			double[] wt = new double[n];
+			int[] val = new int[n];
 
-			// Gắn danh sách đơn hàng vào xe
+			for (int i = 0; i < n; i++) {
+				wt[i] = allDonHang.get(i).getTrongLuong();
+				val[i] = allDonHang.get(i).getGiaTri();
+			}
+
+			List<DonHang> danhSachXep = new ArrayList<>();
+
+			double totalValue = knapsack(W, wt, val, danhSachXep);
+
 			xe.setDsDonHang(danhSachXep);
 
-			// Lưu trạng thái xe vào cụm giao
-			cum.updateXe(xe); // Cập nhật xe với danh sách đơn hàng mới
-
-			// Xóa các đơn hàng đã được sắp xếp khỏi trạm giao
 			for (DonHang dh : danhSachXep) {
-				TramGiao tram = cum.getTram(dh.getTramGiao()); // Tìm trạm của đơn hàng
-				if (tram != null) {
-					tram.xoaDonHang(dh); // Xóa đơn hàng khỏi trạm
-				}
+				TramGiao tram = cum.getTram(dh.getTramGiao());
+				tram.xoaDonHang(dh);
 			}
+
 		}
 	}
 }

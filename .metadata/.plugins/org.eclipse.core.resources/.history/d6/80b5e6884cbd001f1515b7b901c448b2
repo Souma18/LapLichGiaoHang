@@ -132,7 +132,7 @@ public class CumGiao {
 	public void updateXe(Xe xe) {
 		// Giả sử listXe là danh sách các xe trong cụm giao
 		for (int i = 0; i < listXe.size(); i++) {
-			if (listXe.get(i).getId() == (xe.getId())) { // So sánh ID xe
+			if (listXe.get(i).getId().equals(xe.getId())) { // So sánh ID xe
 				listXe.set(i, xe); // Cập nhật xe trong danh sách
 				break;
 			}
