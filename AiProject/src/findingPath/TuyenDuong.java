@@ -69,7 +69,7 @@ public class TuyenDuong {
 		List<Nodee> listCheckPoint = new LinkedList<>();
 
 		// ánh xạ node trong main map sang cluster
-		for (TramGiao tram : cluster.getCumGiao()) {
+		for (TramGiao tram : cluster.getListTram()) {
 			for (Nodee nodee : listNode) {
 				if (nodee.getTram().equals(tram)) {
 					listCheckPoint.add(nodee);
@@ -438,132 +438,6 @@ public class TuyenDuong {
 			System.out.println();
 		}
 	}
-
-	public static void main(String[] args) {
-		TramGiao t1 = new TramGiao(1, "1", 0, null, null);
-		TramGiao t2 = new TramGiao(2, "2", 0, null, null);
-		TramGiao t3 = new TramGiao(3, "3", 0, null, null);
-		TramGiao t4 = new TramGiao(4, "4", 0, null, null);
-		TramGiao t5 = new TramGiao(5, "5", 0, null, null);
-
-		KhoangCachCacTram k0 = new KhoangCachCacTram(t1, t4, 10, 0);
-		KhoangCachCacTram k1 = new KhoangCachCacTram(t1, t2, 50, 0);
-		KhoangCachCacTram k2 = new KhoangCachCacTram(t1, t3, 45, 0);
-		KhoangCachCacTram k22 = new KhoangCachCacTram(t3, t1, 15, 0);
-
-		KhoangCachCacTram k3 = new KhoangCachCacTram(t2, t3, 10, 0);
-		KhoangCachCacTram k4 = new KhoangCachCacTram(t2, t4, 15, 0);
-
-		KhoangCachCacTram k11 = new KhoangCachCacTram(t3, t5, 30, 0);
-
-		KhoangCachCacTram k6 = new KhoangCachCacTram(t4, t5, 15, 0);
-		KhoangCachCacTram k7 = new KhoangCachCacTram(t4, t1, 10, 0);
-
-		KhoangCachCacTram k5 = new KhoangCachCacTram(t5, t2, 20, 0);
-		KhoangCachCacTram k9 = new KhoangCachCacTram(t5, t3, 35, 0);
-
-		List<KhoangCachCacTram> listKC = new LinkedList<>();
-		listKC.add(k0);
-		listKC.add(k1);
-		listKC.add(k2);
-		listKC.add(k3);
-		listKC.add(k4);
-		listKC.add(k5);
-		listKC.add(k6);
-		listKC.add(k7);
-		listKC.add(k9);
-		listKC.add(k11);
-		TuyenDuong t = new TuyenDuong();
-		t.createNodee(new BanDo(listKC));
-
-		CumGiao c = new CumGiao(1);
-		c.addTramGiao(t2);
-		c.addTramGiao(t5);
-		c.addTramGiao(t3);
-		BanDo bd = new BanDo(listKC);
-		t.setBanDo(bd);
-		t.addTuyenDuong(c);
-		
-		
-		System.out.println("check in PhanPhoi class");
-//		TramGiao t1 = new TramGiao(1, "1", 0, null, null);
-//		TramGiao t2 = new TramGiao(2, "2", 0, null, null);
-//		TramGiao t3 = new TramGiao(3, "3", 0, null, null);
-//		TramGiao t4 = new TramGiao(4, "4", 0, null, null);
-//		TramGiao t5 = new TramGiao(4, "5", 0, null, null);
-//		TramGiao t6 = new TramGiao(6, "6", 0, null, null);
-//		TramGiao t7 = new TramGiao(7, "7", 0, null, null);
-//		TramGiao t8 = new TramGiao(8, "8", 0, null, null);
-//		TramGiao t9 = new TramGiao(9, "9", 0, null, null);
-//		
-//		KhoangCachCacTram k12=new KhoangCachCacTram(t1, t2, 2, 0);
-//		KhoangCachCacTram k13=new KhoangCachCacTram(t1, t3, 2, 0);
-//		KhoangCachCacTram k14=new KhoangCachCacTram(t1, t4, 2, 0);
-//		
-//		KhoangCachCacTram k21=new KhoangCachCacTram(t2, t1, 2, 0);
-//		KhoangCachCacTram k31=new KhoangCachCacTram(t3, t1, 2, 0);
-//		KhoangCachCacTram k41=new KhoangCachCacTram(t4, t1, 1, 0);
-//		
-//		KhoangCachCacTram k26=new KhoangCachCacTram(t2, t6, 3, 0);
-//		KhoangCachCacTram k36=new KhoangCachCacTram(t3, t6, 3, 0);
-//		KhoangCachCacTram k46=new KhoangCachCacTram(t4, t6, 3, 0);
-//		
-//		KhoangCachCacTram k62=new KhoangCachCacTram(t6, t2, 3, 0);
-//		KhoangCachCacTram k63=new KhoangCachCacTram(t6, t3, 3, 0);
-//		KhoangCachCacTram k64=new KhoangCachCacTram(t6, t4, 2, 0);
-//		
-//		KhoangCachCacTram k65=new KhoangCachCacTram(t6, t5, 4, 0);
-//		KhoangCachCacTram k69=new KhoangCachCacTram(t6, t9, 4, 0);
-//		KhoangCachCacTram k67=new KhoangCachCacTram(t6, t7, 4, 0);
-//		
-//		
-//		KhoangCachCacTram k56=new KhoangCachCacTram(t5, t6, 4, 0);
-//		KhoangCachCacTram k96=new KhoangCachCacTram(t9, t6, 4, 0);
-//		KhoangCachCacTram k76=new KhoangCachCacTram(t7, t6, 3, 0);
-//		
-//		KhoangCachCacTram k58=new KhoangCachCacTram(t5, t6, 5, 0);
-//		KhoangCachCacTram k98=new KhoangCachCacTram(t9, t6, 5, 0);
-//		KhoangCachCacTram k78=new KhoangCachCacTram(t7, t6, 5, 0);
-//		
-//		KhoangCachCacTram k85=new KhoangCachCacTram(t5, t6, 4, 0);
-//		KhoangCachCacTram k89=new KhoangCachCacTram(t9, t6, 5, 0);
-//		KhoangCachCacTram k87=new KhoangCachCacTram(t7, t6, 4, 0);
-//		
-//		List<KhoangCachCacTram> listKC = new LinkedList<>();
-//		
-//		listKC.add(k12);
-//		listKC.add(k13);
-//		listKC.add(k14);
-//		listKC.add(k21);
-//		listKC.add(k31);
-//		listKC.add(k41);
-//		listKC.add(k26);
-//		listKC.add(k36);
-//		listKC.add(k46);
-//		listKC.add(k62);
-//		listKC.add(k63);
-//		listKC.add(k64);
-//		listKC.add(k65);
-//		listKC.add(k69);
-//		listKC.add(k67);
-//		listKC.add(k56);
-//		listKC.add(k96);
-//		listKC.add(k76);
-//		listKC.add(k58);
-//		listKC.add(k98);
-//		listKC.add(k78);
-//		listKC.add(k85);
-//		listKC.add(k89);
-//		listKC.add(k87);
-//		
-//		TuyenDuong t = new TuyenDuong();
-//		t.createNodee(new BanDo(listKC));
-//
-//		CumGiao c = new CumGiao(1);
-//		BanDo bd = new BanDo(listKC);
-//		c.addTramGiao(t6);
-//		c.addTramGiao(t8);
-//		t.setBanDo(bd);
-//		t.addTuyenDuong(c);
-	}
 }
+
+

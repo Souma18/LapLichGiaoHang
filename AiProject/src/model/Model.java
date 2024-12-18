@@ -1,35 +1,88 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import data.CumGiao;
+import data.DonHang;
+import data.KhoangCachCacTram;
 import data.NSX;
+import data.QuanLyDon;
+import data.QuanLyXe;
+import data.TramGiao;
+import data.TuyenDuongDuocTaoRa;
+import data.Xe;
 
 public class Model {
 	private ModelCumGiao modelCumGiao;
 	private ModelTuyenDuong modelTuyenDuong;
 	private ModelSapXep modelSapXep;
 	private NSX nxs;
-	public Model(ModelCumGiao modelCumGiao, ModelTuyenDuong modelTuyenDuong, NSX nxs) {
-		this.modelCumGiao = modelCumGiao;
-		this.modelTuyenDuong = modelTuyenDuong;
-		this.nxs = nxs;
+
+	public Model(NSX nsx) {
+		this.nxs = nsx;
+		this.modelCumGiao = new ModelCumGiao(nsx);
 	}
-	public ModelCumGiao getModelCumGiao() {
-		return modelCumGiao;
+
+//lấy nsx
+	public NSX getNSX() {
+		return this.nxs;
 	}
-	public void setModelCumGiao(ModelCumGiao modelCumGiao) {
-		this.modelCumGiao = modelCumGiao;
+
+//lấy danh sách cụm
+	public List<CumGiao> getListCumGiao() {
+		return modelCumGiao.getListCumGiao();
 	}
-	public ModelTuyenDuong getModelTuyenDuong() {
-		return modelTuyenDuong;
+
+//	lấy số lượng cụm
+	public int soLuongCumDuocPhan() {
+		return getListCumGiao().size();
 	}
-	public void setModelTuyenDuong(ModelTuyenDuong modelTuyenDuong) {
-		this.modelTuyenDuong = modelTuyenDuong;
+//lấy tuyến đường
+	public TuyenDuongDuocTaoRa tuyenduong() {
+		return null;
 	}
-	public NSX getNxs() {
-		return nxs;
+	public static void main(String[] args) {
+		List<DonHang> donHangList = new ArrayList<>();
+		donHangList.add(new DonHang(1, "Trạm A", "Thường", 10, 1, 100000));
+		donHangList.add(new DonHang(2, "Trạm A", "Hỏa tốc", 10, 3, 500000));
+		donHangList.add(new DonHang(3, "Trạm A", "Giá trị", 10, 2, 300000));
+		donHangList.add(new DonHang(4, "Trạm A", "Thường", 20, 1, 120000));
+		donHangList.add(new DonHang(5, "Trạm A", "Hỏa tốc", 20, 3, 450000));
+		donHangList.add(new DonHang(6, "Trạm A", "Giá trị", 20, 2, 320000));
+		donHangList.add(new DonHang(7, "Trạm A", "Hỏa tốc", 20, 3, 470000));
+		donHangList.add(new DonHang(8, "Trạm B", "Giá trị", 10, 2, 350000));
+		donHangList.add(new DonHang(8, "Trạm C", "Giá trị", 10, 2, 350000));
+		donHangList.add(new DonHang(8, "Trạm C", "Giá trị", 10, 2, 350000));
+		QuanLyDon quanLyDon = new QuanLyDon(donHangList);
+		List<Xe> xeList = new ArrayList<>();
+		double sucChuaToiDa = 100.0; // Đơn vị: kg
+		int soDonToiDa = 10; // Số đơn tối đa mỗi xe có thể chở
+		// Tạo danh sách 20 xe
+		for (int i = 1; i <= 3; i++) {
+			int bienSo = 1000 + i; // Giả định biển số tăng dần từ 1001
+			xeList.add(new Xe(i, bienSo, sucChuaToiDa, soDonToiDa));
+		}
+		QuanLyXe quanLyXe = new QuanLyXe(xeList);
+		List<TramGiao> danhSachTram = new ArrayList<>();
+		TramGiao tramNSX = new TramGiao(111, "Nhà sản xuất hàng hóa", 0, null);
+		TramGiao tramA = new TramGiao(1, "Trạm A", 0, null);
+		TramGiao tramB = new TramGiao(2, "Trạm B", 0, null);
+		TramGiao tramC = new TramGiao(3, "Trạm C", 0, null);
+		danhSachTram.add(tramNSX);
+		danhSachTram.add(tramA);
+		danhSachTram.add(tramB);
+		danhSachTram.add(tramC);
+		List<KhoangCachCacTram> khoangCachList = new ArrayList<>();
+		// Khoảng cách giữa các trạm
+		khoangCachList.add(new KhoangCachCacTram(tramNSX, tramA, 10.0, 300.0));
+		khoangCachList.add(new KhoangCachCacTram(tramNSX, tramB, 11.0, 500.0));
+		khoangCachList.add(new KhoangCachCacTram(tramA, tramB, 10, 700.0));
+		khoangCachList.add(new KhoangCachCacTram(tramA, tramB, 9, 850.0));
+		khoangCachList.add(new KhoangCachCacTram(tramC, tramB, 9, 850.0));
+
+		NSX nsx = new NSX("Nhà sản xuất hàng hóa", quanLyDon, quanLyXe, danhSachTram, khoangCachList);
+		Model model = new Model(nsx);
+		System.out.println("--"+model.getListCumGiao().size());
 	}
-	public void setNxs(NSX nxs) {
-		this.nxs = nxs;
-	}
-	
-	
 }

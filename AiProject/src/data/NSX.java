@@ -1,5 +1,6 @@
 package data;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,15 +13,6 @@ public class NSX {
 	private QuanLyXe quanLyXe;
 	private List<TramGiao> dsTram;
 	private List<KhoangCachCacTram> kc;//danh sách đường đi của cả map
-	private XuLy xuLy;
-//xuly để lấy dữ liệu từ db
-//	public NSX(String tenNSX, QuanLyDon quanLyDon, QuanLyXe quanLyXe) {
-//		TenNSX = tenNSX;
-//		this.quanLyDon = quanLyDon;
-//		this.quanLyXe = quanLyXe;
-//		dsTram = xuLy.getDSTram();
-//		CapNhatDonChoTram();
-//	}
 
 	public NSX(String tenNSX, QuanLyDon quanLyDon, QuanLyXe quanLyXe, List<TramGiao> dsTram,
 			List<KhoangCachCacTram> kc) {
@@ -60,7 +52,15 @@ public class NSX {
 	public List<TramGiao> getDsTram() {
 		return dsTram;
 	}
-
+public List<TramGiao> getDsTramMinus(){
+	List<TramGiao> ds = new ArrayList<TramGiao>();
+	for (TramGiao tramGiao : dsTram) {
+		if (!TenNSX.equals(tramGiao.getTenTram())) {
+			ds.add(tramGiao);
+		}
+	}
+	return ds;
+}
 	public void setDsTram(List<TramGiao> dsTram) {
 		this.dsTram = dsTram;
 	}
@@ -101,7 +101,9 @@ public class NSX {
 	public double tongTaiTrongXe() {
 		return quanLyXe.tongTaiTrongXe();
 	}
-
+public int tongSoLuongXe() {
+	return quanLyXe.tongSoLuongXe();
+}
 	public int tongXLDonXe() {
 		return quanLyXe.tongXLDonXe();
 	}

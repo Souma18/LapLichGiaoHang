@@ -33,5 +33,7 @@ public class QuanLyXe {
 		}
 		return sum;
 	}
-	
+	public int tongSoLuongXe() {
+		return listXe.size();
+	}
 }
