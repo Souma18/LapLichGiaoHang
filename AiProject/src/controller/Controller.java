@@ -1,13 +1,18 @@
 package controller;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
 import model.Model;
-import model.ModelCumGiao;
 import view.View;
 import data.CumGiao;
 import data.DonHang;
@@ -81,6 +86,7 @@ public class Controller {
 			// Cập nhật thông tin lên panel trái trong View
 			views.updateLeftPanel(data.toString());
 		}
+		themSuKienChoBang();
 	}
 
 	// Cập nhật panel phải (hiển thị tuyến đường sau khi sắp xếp)
@@ -101,7 +107,34 @@ public class Controller {
 //			String cum, String xeId, int soLuongHang, String tuyenDuong
 		}
 	}
+	// Lắng nghe sự kiện khi click vào bảng
+	private void themSuKienChoBang() {
+	    views.getRightPanelTable().addMouseListener(new java.awt.event.MouseAdapter() {
+	        @Override
+	        public void mouseClicked(java.awt.event.MouseEvent e) {
+	            int row = views.getRightPanelTable().getSelectedRow(); // Lấy dòng được chọn
+	            if (row != -1) {
+	            	  String tuyenDuong = views.getTableModel().getValueAt(row, 3).toString(); // Chuyển StringBuffer thành String
+	                hienThiChiTietTuyenDuong(tuyenDuong);
+	            }
+	        }
+	    });
+	}
 
+	// Hàm hiển thị chi tiết tuyến đường trong cửa sổ nhỏ
+	private void hienThiChiTietTuyenDuong(String tuyenDuong) {
+	    JDialog dialog = new JDialog(views, "Chi tiết tuyến đường", true);
+	    dialog.setSize(400, 300);
+	    dialog.setLayout(new BorderLayout());
+	    dialog.add(new JLabel("Chi tiết tuyến đường"), BorderLayout.NORTH);
+
+	    JTextArea textArea = new JTextArea(tuyenDuong);
+	    textArea.setEditable(false);
+	    dialog.add(new JScrollPane(textArea), BorderLayout.CENTER);
+
+	    dialog.setLocationRelativeTo(views);
+	    dialog.setVisible(true);
+	}
 	public static void main(String[] args) {
 		List<DonHang> donHangList = new ArrayList<>();
 		donHangList.add(new DonHang(1, "Trạm A", "Thường", 10, 1, 100000));

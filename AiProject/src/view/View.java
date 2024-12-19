@@ -81,4 +81,8 @@ public class View extends JFrame {
 	public DefaultTableModel getTableModel() {
 		return tableModel;
 	}
+	// Trả về bảng để thêm MouseListener
+	public JTable getRightPanelTable() {
+	    return rightPanelTable;
+	}
 }

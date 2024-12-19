@@ -1,0 +1,83 @@
+package view;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.table.DefaultTableModel;
+
+public class View extends JFrame {
+    private JTextArea leftPanelTextArea;
+    private JTable rightPanelTable;
+    private DefaultTableModel tableModel;
+    private JButton sortButton;
+
+    public View() {
+        // Thiết lập JFrame
+        setTitle("Tuyến Đường Giao Hàng");
+        setSize(800, 600);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // Tạo panel bên trái
+        JPanel leftPanel = new JPanel(new BorderLayout());
+        leftPanel.setBackground(Color.green);
+        leftPanelTextArea = new JTextArea();
+        leftPanelTextArea.setEditable(false);
+        JScrollPane leftScroll = new JScrollPane(leftPanelTextArea);
+        leftPanel.add(new JLabel("Thông tin giao hàng"), BorderLayout.NORTH);
+        leftPanel.add(leftScroll, BorderLayout.CENTER);
+
+        // Thêm nút vào panel bên trái
+        sortButton = new JButton("Sắp xếp tuyến đường");
+        leftPanel.add(sortButton, BorderLayout.SOUTH);
+
+        // Tạo panel bên phải
+        JPanel rightPanel = new JPanel(new BorderLayout());
+        rightPanel.setBackground(Color.green);
+        String[] columnNames = { "Cụm", "Xe", "Số lượng hàng", "Tuyến đường" };
+        tableModel = new DefaultTableModel(columnNames, 0);
+        rightPanelTable = new JTable(tableModel);
+        JScrollPane rightScroll = new JScrollPane(rightPanelTable);
+        rightPanel.add(new JLabel("Thông tin tuyến đường"), BorderLayout.NORTH);
+        rightPanel.add(rightScroll, BorderLayout.CENTER);
+
+        // Sử dụng JSplitPane
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel);
+        splitPane.setDividerLocation(300); // Đặt kích thước bên trái nhỏ hơn (300 pixel)
+        add(splitPane, BorderLayout.CENTER);
+
+        setVisible(true);
+    }
+
+    // Hiển thị thông tin tổng quan
+    public void updateLeftPanel(String data) {
+        leftPanelTextArea.setText(data);
+    }
+
+    // Thêm một dòng dữ liệu vào bảng bên phải
+    public void addRowToRightPanel(String cum, String xeId, int soLuongHang, String tuyenDuong) {
+        tableModel.addRow(new Object[] { cum, xeId, soLuongHang, tuyenDuong });
+    }
+
+    // Xóa tất cả dữ liệu trong bảng bên phải
+    public void clearRightPanel() {
+        tableModel.setRowCount(0);
+    }
+
+    // Trả về nút để thêm action listener
+    public JButton getSortButton() {
+        return sortButton;
+    }
+
+    // Trả về DefaultTableModel của bảng
+    public DefaultTableModel getTableModel() {
+        return tableModel;
+    }
+}
