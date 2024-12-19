@@ -71,7 +71,6 @@ public class CumGiao {
 		this.khoiLuongDon = khoiLuongDon;
 	}
 
-	
 	public List<TramGiao> getListTram() {
 		return listTram;
 	}
@@ -126,6 +125,7 @@ public class CumGiao {
 		}
 		return list;
 	}
+
 	public TramGiao getTram(String tenTram) {
 		for (TramGiao tramGiao : listTram) {
 			if (tenTram.equals(tramGiao.getTenTram())) {
@@ -133,5 +133,15 @@ public class CumGiao {
 			}
 		}
 		return null;
+	}
+
+	public void updateXe(Xe xe) {
+		// Giả sử listXe là danh sách các xe trong cụm giao
+		for (int i = 0; i < listXe.size(); i++) {
+			if (listXe.get(i).getId() == (xe.getId())) { // So sánh ID xe
+				listXe.set(i, xe); // Cập nhật xe trong danh sách
+				break;
+			}
+		}
 	}
 }
