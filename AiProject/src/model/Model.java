@@ -88,10 +88,14 @@ public class Model {
 		List<KhoangCachCacTram> khoangCachList = new ArrayList<>();
 		// Khoảng cách giữa các trạm
 		khoangCachList.add(new KhoangCachCacTram(tramNSX, tramA, 10.0, 300.0));
+		khoangCachList.add(new KhoangCachCacTram(tramA, tramNSX, 10.0, 300.0));
 		khoangCachList.add(new KhoangCachCacTram(tramNSX, tramB, 11.0, 500.0));
+		khoangCachList.add(new KhoangCachCacTram(tramB, tramNSX, 11.0, 500.0));
 		khoangCachList.add(new KhoangCachCacTram(tramA, tramB, 10, 700.0));
 		khoangCachList.add(new KhoangCachCacTram(tramA, tramB, 9, 850.0));
+		khoangCachList.add(new KhoangCachCacTram(tramB, tramA, 9, 850.0));
 		khoangCachList.add(new KhoangCachCacTram(tramC, tramB, 9, 850.0));
+		khoangCachList.add(new KhoangCachCacTram(tramB, tramC, 9, 850.0));
 
 		NSX nsx = new NSX("Nhà sản xuất hàng hóa", quanLyDon, quanLyXe, danhSachTram, khoangCachList);
 		Model model = new Model(nsx);
