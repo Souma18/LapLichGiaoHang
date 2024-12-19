@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import model.Model;
 import model.ModelCumGiao;
@@ -15,6 +16,7 @@ import data.NSX;
 import data.QuanLyDon;
 import data.QuanLyXe;
 import data.TramGiao;
+import data.TuyenDuongDuocTaoRa;
 import data.Xe;
 
 public class Controller {
@@ -32,7 +34,7 @@ public class Controller {
 		this.views.getSortButton().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-                capNhatPanelPhai();
+				capNhatPanelPhai();
 			}
 		});
 	}
@@ -83,27 +85,21 @@ public class Controller {
 
 	// Cập nhật panel phải (hiển thị tuyến đường sau khi sắp xếp)
 	private void capNhatPanelPhai() {
-	    // Xóa dữ liệu cũ trong bảng
-	    views.clearRightPanel();
+		// Xóa dữ liệu cũ trong bảng
+		views.clearRightPanel();
 
-	    // Lấy danh sách cụm giao từ model
-	    List<CumGiao> cumGiaoList = models.getListCumGiao();
-	    cumGiaoList.forEach(cum -> {
-	        cum.getListXe().forEach(xe -> {
-	            // Lấy dữ liệu tuyến đường
-//	            List<String> tuyenDi = models.getModelTuyenDuong().getTuyenDuongDiChoXe(xe);
-//	            List<String> tuyenVe = models.getModelTuyenDuong().getTuyenDuongVeChoXe(xe);
-
-	            // Thêm dữ liệu vào bảng
-	            views.addRowToRightPanel(
-	                "Cụm " + cum.getId(),
-	                "Xe " + xe.getId(),
-	                xe.soLuongDon(),
-	                String.join(", ", ""),
-	                String.join(", ", "")
-	            );
-	        });
-	    });
+		// Lấy danh sách cụm giao từ model
+		Map<CumGiao, List<TuyenDuongDuocTaoRa>> map = models.tuyenduong();
+		List<CumGiao> cumGiaoList = models.getListCumGiao();
+		for (Map.Entry<CumGiao, List<TuyenDuongDuocTaoRa>> entry : map.entrySet()) {
+			StringBuffer buiBuffer = new StringBuffer();
+			entry.getValue().get(0).getTuyenDuong().forEach(tram -> {
+				buiBuffer.append(tram.getTenTram()).append(", ");
+			});
+			views.addRowToRightPanel("Cum " + entry.getKey(), "xe " + entry.getValue().get(0).getXe().getId(), 0,
+					buiBuffer);
+//			String cum, String xeId, int soLuongHang, String tuyenDuong
+		}
 	}
 
 	public static void main(String[] args) {

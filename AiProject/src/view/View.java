@@ -42,7 +42,7 @@ public class View extends JFrame {
 		JPanel rightPanel = new JPanel(new BorderLayout());
 		rightPanel.setBackground(Color.green);
 		// Cấu trúc cột của bảng
-		String[] columnNames = { "Cụm", "Xe", "Số lượng hàng", "Tuyến đường đi", "Tuyến đường về" };
+		String[] columnNames = { "Cụm", "Xe", "Số lượng hàng", "Tuyến đường"};
 		tableModel = new DefaultTableModel(columnNames, 0);
 		rightPanelTable = new JTable(tableModel);
 		JScrollPane rightScroll = new JScrollPane(rightPanelTable);
@@ -63,8 +63,8 @@ public class View extends JFrame {
 	}
 
 	// Thêm một dòng dữ liệu vào bảng bên phải
-	public void addRowToRightPanel(String cum, String xeId, int soLuongHang, String tuyenDi, String tuyenVe) {
-		tableModel.addRow(new Object[] { cum, xeId, soLuongHang, tuyenDi, tuyenVe });
+	public void addRowToRightPanel(String cum, String xeId, int soLuongHang, StringBuffer buiBuffer) {
+		tableModel.addRow(new Object[] { cum, xeId, soLuongHang, buiBuffer});
 	}
 
 	// Xóa tất cả dữ liệu trong bảng bên phải

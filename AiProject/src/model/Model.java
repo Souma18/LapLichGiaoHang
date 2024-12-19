@@ -1,7 +1,9 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import data.CumGiao;
 import data.DonHang;
@@ -12,6 +14,7 @@ import data.QuanLyXe;
 import data.TramGiao;
 import data.TuyenDuongDuocTaoRa;
 import data.Xe;
+import findingPath.BanDo;
 
 public class Model {
 	private ModelCumGiao modelCumGiao;
@@ -38,10 +41,19 @@ public class Model {
 	public int soLuongCumDuocPhan() {
 		return getListCumGiao().size();
 	}
+
 //lấy tuyến đường
-	public TuyenDuongDuocTaoRa tuyenduong() {
-		return null;
+	public Map<CumGiao, List<TuyenDuongDuocTaoRa>> tuyenduong() {
+		List<TuyenDuongDuocTaoRa> tuyenduong = new ArrayList<TuyenDuongDuocTaoRa>();
+		Map<CumGiao, List<TuyenDuongDuocTaoRa>> map = new HashMap<CumGiao, List<TuyenDuongDuocTaoRa>>();
+		for (CumGiao cumGiao : modelCumGiao.getListCumGiao()) {
+			modelTuyenDuong = new ModelTuyenDuong(cumGiao,new BanDo(nxs.getKc()), cumGiao.getListXe());
+			tuyenduong = modelTuyenDuong.listTuyenDuongTaoRa();
+			map.put(cumGiao, tuyenduong);
+		}
+		return map;
 	}
+
 	public static void main(String[] args) {
 		List<DonHang> donHangList = new ArrayList<>();
 		donHangList.add(new DonHang(1, "Trạm A", "Thường", 10, 1, 100000));
@@ -83,6 +95,13 @@ public class Model {
 
 		NSX nsx = new NSX("Nhà sản xuất hàng hóa", quanLyDon, quanLyXe, danhSachTram, khoangCachList);
 		Model model = new Model(nsx);
-		System.out.println("--"+model.getListCumGiao().size());
+		CumGiao cum = new CumGiao(1, danhSachTram, xeList);
+		System.out.println("--" + model.getListCumGiao().size());
+		ModelTuyenDuong m = new ModelTuyenDuong(cum, new BanDo(khoangCachList), xeList);
+		List<TuyenDuongDuocTaoRa> tuyen = m.listTuyenDuongTaoRa();
+		int i=0;
+		for (TuyenDuongDuocTaoRa tuyenDuongDuocTaoRa : tuyen) {
+			System.out.println("lan"+i++);
+		}
 	}
 }

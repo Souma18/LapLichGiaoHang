@@ -5,8 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import data.CumGiao;
-import data.KhoangCachCacTram;
 import data.TramGiao;
 import data.TuyenDuongDuocTaoRa;
 import data.Xe;
@@ -15,11 +13,10 @@ public class PhanPhoi {
 	private List<Xe> listXe;
 	private List<TuyenDuongDuocTaoRa> listTuyenDuongDuocTaoRa;
 
-	public PhanPhoi(List<Xe> listXe) {
-		super();
-		this.listXe = listXe;
-		this.listTuyenDuongDuocTaoRa= new ArrayList<TuyenDuongDuocTaoRa>();
+	public PhanPhoi() {
 		
+		this.listXe = new LinkedList<Xe>() ;
+		this.listTuyenDuongDuocTaoRa= new ArrayList<TuyenDuongDuocTaoRa>();
 	}
 	public List<Xe> getListXe() {
 		return listXe;

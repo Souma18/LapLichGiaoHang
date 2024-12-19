@@ -1,23 +1,72 @@
 package model;
 
-import java.util.Map;
+import java.util.List;
 
-import javax.swing.plaf.metal.MetalIconFactory.TreeLeafIcon;
-
+import data.CumGiao;
 import data.TuyenDuongDuocTaoRa;
+import data.Xe;
+import findingPath.BanDo;
+import findingPath.PhanPhoi;
+import findingPath.TuyenDuong;
 
 public class ModelTuyenDuong {
-	private TuyenDuongDuocTaoRa tuyenDuongDuocTaoRa;
+	// xu ly tuyen duong
+	private CumGiao cum;
+	private BanDo bd;
+	private List<Xe> listXe;
 
-	public ModelTuyenDuong(TuyenDuongDuocTaoRa tuyenDuongDuocTaoRa) {
-		this.tuyenDuongDuocTaoRa = tuyenDuongDuocTaoRa;
+	public ModelTuyenDuong(CumGiao cum, BanDo bd, List<Xe> listXe) {
+		this.cum = cum;
+		this.bd = bd;
+		this.listXe = listXe;
 	}
 
-	public TuyenDuongDuocTaoRa getTuyenDuongDuocTaoRa() {
-		return tuyenDuongDuocTaoRa;
+	public BanDo getBd() {
+		return bd;
 	}
 
-	public void setTuyenDuongDuocTaoRa(TuyenDuongDuocTaoRa tuyenDuongDuocTaoRa) {
-		this.tuyenDuongDuocTaoRa = tuyenDuongDuocTaoRa;
+	public void setBd(BanDo bd) {
+		this.bd = bd;
 	}
+
+	public List<Xe> getListXe() {
+		return listXe;
+	}
+
+	public void setListXe(List<Xe> listXe) {
+		this.listXe = listXe;
+	}
+
+	public CumGiao getCum() {
+		return cum;
+	}
+
+	public void setCum(CumGiao cum) {
+		this.cum = cum;
+	}
+
+	public BanDo getBando() {
+		return bd;
+	}
+
+	public void setBando(BanDo bando) {
+		this.bd = bando;
+	}
+
+	public List<TuyenDuongDuocTaoRa> listTuyenDuongTaoRa() {
+		TuyenDuong t = new TuyenDuong();
+		PhanPhoi p = new PhanPhoi();
+		t.setBanDo(bd);
+		t.addTuyenDuong(cum);
+		p.setListXe(getListXe());
+		p.coordinatedAction(t);
+		return p.getListTuyenDuongDuocTaoRa();
+	}
+
+	public  void printtt(List<TuyenDuongDuocTaoRa> list) {
+		for (TuyenDuongDuocTaoRa tuyenDuongDuocTaoRa : list) {
+			System.out.println(tuyenDuongDuocTaoRa.toString());
+		}
+	}
+
 }
