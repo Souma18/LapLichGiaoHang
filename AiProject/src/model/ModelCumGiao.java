@@ -194,89 +194,88 @@ public class ModelCumGiao {
 	}
 
 	public void clusteringB() {
-    if (!kiemTraXeVaDonHang()) {
-        System.out.println("Lỗi dữ liệu sai, không đủ xe hoặc đơn hàng");
-        return;
-    }
-
-    // Dữ liệu từ NSX
-    List<Xe> dsXe = nsx.getQuanLyXe().getListXe();
-    List<KhoangCachCacTram> danhSachKC = nsx.getKc();
-    List<TramGiao> dsTram = nsx.getDsTram();
-
-    TramGiao tramNSX = this.tramNSX();
-    List<TramGiao> tramDaPhanCum = new LinkedList<>();
-    tramDaPhanCum.add(tramNSX);
-    List<TramGiao> tramThuaHang = new LinkedList<>();
-
-    int idCum = 0;
-
-    // Duyệt qua từng xe
-    for (Xe xe : dsXe) {
-        System.out.println("Xe " + xe.getBienSo() + "-------------");
-        
-        // Nếu đã đánh dấu tất cả trạm
-        if (tramDaPhanCum.size() == dsTram.size()) {
-            System.out.println("Thành công: Đã phân cụm cho tất cả trạm.");
-            break;
-        }
-
-        // Tạo cụm mới
-        CumGiao cum = new CumGiao(idCum++);
-        cum.addTramGiao(tramNSX);
-        cum.addXe(xe);
-        listCumGiao.add(cum);
-
-        // Tính toán khối lượng và số lượng đơn hàng còn lại trên xe
-        double khoiLuong = xe.getSucChuaToiDa();
-        int soLuong = xe.getSoDonToiDa();
-        System.out.println("Khối lượng bắt đầu: " + khoiLuong);
-        System.out.println("Số lượng bắt đầu: " + soLuong);
-
-        // Duyệt qua các trạm giao
-        for (TramGiao tramGiao : dsTram) {
-            // Bỏ qua trạm đã được phân cụm
-            if (TramDaPhanCum(tramGiao, tramDaPhanCum)) {
-                continue;
-            }
-
-            System.out.println("Đang xử lý trạm: " + tramGiao.getTenTram());
-
-            // Kiểm tra tải trọng và số lượng đơn hàng
-            boolean danhDauThuaHang = false;
-            if (khoiLuong < tramGiao.getKhoiLuongDon() || soLuong < tramGiao.getSLDon()) {
-                danhDauThuaHang = true;
-                tramThuaHang.add(tramGiao);
-                System.out.println("Trạm " + tramGiao.getTenTram() + " bị vượt tải, đã đánh dấu còn thừa hàng.");
-            }
-
-            cum.addTramGiao(tramGiao);
-            tramDaPhanCum.add(tramGiao);
-
-            // Cập nhật tải trọng và số lượng nếu không vượt tải
-            if (!danhDauThuaHang) {
-                khoiLuong -= tramGiao.getKhoiLuongDon();
-                soLuong -= tramGiao.getSLDon();
-                System.out.println("Khối lượng còn lại: " + khoiLuong + ", số lượng còn lại: " + soLuong);
-            } else {
-                // Nếu vượt tải, dừng vòng lặp để xử lý xe tiếp theo
-                break;
-            }
-        }
-    }
-xuLyHangThua(tramThuaHang);
- 
-  
-}
-
-private void xuLyHangThua(List<TramGiao> tramThuaHang) {
-		for (CumGiao cumGiao : listCumGiao) {
-			
+		if (!kiemTraXeVaDonHang()) {
+			System.out.println("Lỗi dữ liệu sai, không đủ xe hoặc đơn hàng");
+			return;
 		}
-		
+
+		// Dữ liệu từ NSX
+		List<Xe> dsXe = nsx.getQuanLyXe().getListXe();
+		List<KhoangCachCacTram> danhSachKC = nsx.getKc();
+		List<TramGiao> dsTram = nsx.getDsTram();
+
+		TramGiao tramNSX = this.tramNSX();
+		List<TramGiao> tramDaPhanCum = new LinkedList<>();
+		tramDaPhanCum.add(tramNSX);
+		List<TramGiao> tramThuaHang = new LinkedList<>();
+
+		int idCum = 0;
+
+		// Duyệt qua từng xe
+		for (Xe xe : dsXe) {
+			System.out.println("Xe " + xe.getBienSo() + "-------------");
+
+			// Nếu đã đánh dấu tất cả trạm
+			if (tramDaPhanCum.size() == dsTram.size()) {
+				System.out.println("Thành công: Đã phân cụm cho tất cả trạm.");
+				break;
+			}
+
+			// Tạo cụm mới
+			CumGiao cum = new CumGiao(idCum++);
+			cum.addTramGiao(tramNSX);
+			cum.addXe(xe);
+			listCumGiao.add(cum);
+
+			// Tính toán khối lượng và số lượng đơn hàng còn lại trên xe
+			double khoiLuong = xe.getSucChuaToiDa();
+			int soLuong = xe.getSoDonToiDa();
+			System.out.println("Khối lượng bắt đầu: " + khoiLuong);
+			System.out.println("Số lượng bắt đầu: " + soLuong);
+
+			// Duyệt qua các trạm giao
+			for (TramGiao tramGiao : dsTram) {
+				// Bỏ qua trạm đã được phân cụm
+				if (TramDaPhanCum(tramGiao, tramDaPhanCum)) {
+					continue;
+				}
+
+				System.out.println("Đang xử lý trạm: " + tramGiao.getTenTram());
+
+				// Kiểm tra tải trọng và số lượng đơn hàng
+				boolean danhDauThuaHang = false;
+				if (khoiLuong < tramGiao.getKhoiLuongDon() || soLuong < tramGiao.getSLDon()) {
+					danhDauThuaHang = true;
+					tramThuaHang.add(tramGiao);
+					System.out.println("Trạm " + tramGiao.getTenTram() + " bị vượt tải, đã đánh dấu còn thừa hàng.");
+				}
+
+				cum.addTramGiao(tramGiao);
+				tramDaPhanCum.add(tramGiao);
+
+				// Cập nhật tải trọng và số lượng nếu không vượt tải
+				if (!danhDauThuaHang) {
+					khoiLuong -= tramGiao.getKhoiLuongDon();
+					soLuong -= tramGiao.getSLDon();
+					System.out.println("Khối lượng còn lại: " + khoiLuong + ", số lượng còn lại: " + soLuong);
+				} else {
+					// Nếu vượt tải, dừng vòng lặp để xử lý xe tiếp theo
+					break;
+				}
+			}
+		}
+		xuLyHangThua(tramThuaHang);
+
 	}
 
-	//	public void setTuyenDuong() {
+	private void xuLyHangThua(List<TramGiao> tramThuaHang) {
+		for (CumGiao cumGiao : listCumGiao) {
+
+		}
+
+	}
+
+	// public void setTuyenDuong() {
 //		List<KhoangCachCacTram> kc = nsx.getKc();
 //		for (CumGiao cumGiao : listCumGiao) {
 //			cumGiao.setTuyenDuong(kc);

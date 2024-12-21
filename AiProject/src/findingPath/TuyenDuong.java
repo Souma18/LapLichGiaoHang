@@ -16,6 +16,9 @@ public class TuyenDuong {
 	private BanDo banDo;
 	private List<Nodee> listNode;
 
+	public TuyenDuong() {
+		
+	}
 	public List<Nodee> getListNode() {
 		return listNode;
 	}
