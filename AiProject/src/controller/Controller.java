@@ -1,6 +1,8 @@
 package controller;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -9,6 +11,7 @@ import java.util.Map;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
@@ -20,6 +23,7 @@ import data.KhoangCachCacTram;
 import data.NSX;
 import data.QuanLyDon;
 import data.QuanLyXe;
+import data.ToaDo;
 import data.TramGiao;
 import data.TuyenDuongDuocTaoRa;
 import data.Xe;
@@ -115,7 +119,7 @@ public class Controller {
 	            int row = views.getRightPanelTable().getSelectedRow(); // Lấy dòng được chọn
 	            if (row != -1) {
 	            	  String tuyenDuong = views.getTableModel().getValueAt(row, 3).toString(); // Chuyển StringBuffer thành String
-	                hienThiChiTietTuyenDuong(tuyenDuong);
+	                hienThiChiTietTuyenDuong2(tuyenDuong);
 	            }
 	        }
 	    });
@@ -135,6 +139,65 @@ public class Controller {
 	    dialog.setLocationRelativeTo(views);
 	    dialog.setVisible(true);
 	}
+	private void hienThiChiTietTuyenDuong2(String tuyenDuong) {
+    JDialog dialog = new JDialog(views, "Chi tiết tuyến đường", true);
+    dialog.setSize(800, 600); // Kích thước đủ lớn để hiển thị cả danh sách và bản đồ
+    dialog.setLayout(new BorderLayout());
+
+    // Thêm label phía trên
+    dialog.add(new JLabel("Chi tiết tuyến đường"), BorderLayout.NORTH);
+
+    // TextArea hiển thị chi tiết tuyến đường
+    JTextArea textArea = new JTextArea(tuyenDuong);
+    textArea.setEditable(false);
+    textArea.setLineWrap(true);
+    textArea.setWrapStyleWord(true);
+    JScrollPane textScrollPane = new JScrollPane(textArea);
+    textScrollPane.setPreferredSize(new java.awt.Dimension(250, 600)); // Kích thước cố định cho danh sách
+    dialog.add(textScrollPane, BorderLayout.WEST);
+
+    // JPanel để vẽ biểu đồ
+    JPanel chartPanel = new JPanel() {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.setColor(Color.BLACK);
+
+            // Parse dữ liệu tuyến đường và vẽ các trạm
+            String[] tramNames = tuyenDuong.split(", ");
+            ToaDo prevPoint = null;
+
+            for (String tramName : tramNames) {
+                TramGiao tram = models.timTram(tramName.trim()); // Hàm tìm trạm theo tên
+                if (tram != null) {
+                    ToaDo toado = tram.getToaDo();
+                    // Tọa độ được phóng to để dễ thấy trên giao diện
+                    int scaledX = toado.getX() * 50; // Scale tọa độ
+                    int scaledY = toado.getY() * 50;
+                    g.fillOval(scaledX - 5, scaledY - 5, 10, 10); // Vẽ điểm
+
+                    // Vẽ tên trạm
+                    g.drawString(tram.getTenTram(), scaledX + 10, scaledY); // Vẽ tên trạm bên cạnh điểm
+
+                    if (prevPoint != null) {
+                        int prevScaledX = prevPoint.getX() * 50;
+                        int prevScaledY = prevPoint.getY() * 50;
+                        g.drawLine(prevScaledX, prevScaledY, scaledX, scaledY); // Vẽ đường nối
+                    }
+                    prevPoint = toado;
+                }
+            }
+        }
+    };
+
+    chartPanel.setPreferredSize(new java.awt.Dimension(600, 600)); // Đặt kích thước cố định
+    JScrollPane chartScrollPane = new JScrollPane(chartPanel);
+    dialog.add(chartScrollPane, BorderLayout.CENTER);
+
+    dialog.setLocationRelativeTo(views);
+    dialog.setVisible(true);
+}
+
 	public static void main(String[] args) {
 		List<DonHang> donHangList = new ArrayList<>();
 		donHangList.add(new DonHang(1, "Trạm A", "Thường", 10, 1, 100000));
@@ -158,10 +221,10 @@ public class Controller {
 		}
 		QuanLyXe quanLyXe = new QuanLyXe(xeList);
 		List<TramGiao> danhSachTram = new ArrayList<>();
-		TramGiao tramNSX = new TramGiao(111, "Nhà sản xuất hàng hóa", 0, null);
-		TramGiao tramA = new TramGiao(1, "Trạm A", 0, null);
-		TramGiao tramB = new TramGiao(2, "Trạm B", 0, null);
-		TramGiao tramC = new TramGiao(3, "Trạm C", 0, null);
+		TramGiao tramNSX = new TramGiao(111, "Nhà sản xuất hàng hóa", 0, new ToaDo(6, 6));
+		TramGiao tramA = new TramGiao(1, "Trạm A", 0, new ToaDo(5, 6));
+		TramGiao tramB = new TramGiao(2, "Trạm B", 0, new ToaDo(3, 7));
+		TramGiao tramC = new TramGiao(3, "Trạm C", 0, new ToaDo(1, 9));
 		danhSachTram.add(tramNSX);
 		danhSachTram.add(tramA);
 		danhSachTram.add(tramB);

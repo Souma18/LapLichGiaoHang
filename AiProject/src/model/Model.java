@@ -53,4 +53,12 @@ public class Model {
 		}
 		return map;
 	}
+	public TramGiao timTram(String name) {
+		for (TramGiao tram : nxs.getDsTram()) {
+			if (name.equals(tram.getTenTram())) {
+				return tram;
+			}
+		}
+		return null;
+	}
 }
