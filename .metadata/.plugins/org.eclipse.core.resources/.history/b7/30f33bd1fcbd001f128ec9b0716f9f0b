@@ -11,6 +11,7 @@ import data.Xe;
 public class ModelSapXep {
 
 	private List<DonHang> knapsack(double sucChua, List<DonHang> danhSachDonHang) {
+		List<DonHang> danhSachXep = new ArrayList<>();
 		double sucChuaConLai = sucChua;
 
 		if (danhSachDonHang.isEmpty() || sucChuaConLai == 0) {
