@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -15,8 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import model.Model;
-import view.View;
 import data.CumGiao;
 import data.DonHang;
 import data.KhoangCachCacTram;
@@ -27,6 +26,8 @@ import data.ToaDo;
 import data.TramGiao;
 import data.TuyenDuongDuocTaoRa;
 import data.Xe;
+import model.Model;
+import view.View;
 
 public class Controller {
 	private Model models;
@@ -106,143 +107,280 @@ public class Controller {
 			entry.getValue().get(0).getTuyenDuong().forEach(tram -> {
 				buiBuffer.append(tram.getTenTram()).append(", ");
 			});
-			views.addRowToRightPanel("Cum " + entry.getKey().getId(), "xe " + entry.getValue().get(0).getXe().getId(), 0,
-					buiBuffer);
+			views.addRowToRightPanel("Cum " + entry.getKey().getId(), "xe " + entry.getValue().get(0).getXe().getId(),
+					0, buiBuffer);
 //			String cum, String xeId, int soLuongHang, String tuyenDuong
 		}
 	}
+
 	// Lắng nghe sự kiện khi click vào bảng
 	private void themSuKienChoBang() {
-	    views.getRightPanelTable().addMouseListener(new java.awt.event.MouseAdapter() {
-	        @Override
-	        public void mouseClicked(java.awt.event.MouseEvent e) {
-	            int row = views.getRightPanelTable().getSelectedRow(); // Lấy dòng được chọn
-	            if (row != -1) {
-	            	  String tuyenDuong = views.getTableModel().getValueAt(row, 3).toString(); // Chuyển StringBuffer thành String
-	                hienThiChiTietTuyenDuong2(tuyenDuong);
-	            }
-	        }
-	    });
+		views.getRightPanelTable().addMouseListener(new java.awt.event.MouseAdapter() {
+			@Override
+			public void mouseClicked(java.awt.event.MouseEvent e) {
+				int row = views.getRightPanelTable().getSelectedRow(); // Lấy dòng được chọn
+				if (row != -1) {
+					String tuyenDuong = views.getTableModel().getValueAt(row, 3).toString(); // Chuyển StringBuffer
+																								// thành String
+					hienThiChiTietTuyenDuong2(tuyenDuong);
+				}
+			}
+		});
 	}
 
 	// Hàm hiển thị chi tiết tuyến đường trong cửa sổ nhỏ
 	private void hienThiChiTietTuyenDuong(String tuyenDuong) {
-	    JDialog dialog = new JDialog(views, "Chi tiết tuyến đường", true);
-	    dialog.setSize(400, 300);
-	    dialog.setLayout(new BorderLayout());
-	    dialog.add(new JLabel("Chi tiết tuyến đường"), BorderLayout.NORTH);
+		JDialog dialog = new JDialog(views, "Chi tiết tuyến đường", true);
+		dialog.setSize(400, 300);
+		dialog.setLayout(new BorderLayout());
+		dialog.add(new JLabel("Chi tiết tuyến đường"), BorderLayout.NORTH);
 
-	    JTextArea textArea = new JTextArea(tuyenDuong);
-	    textArea.setEditable(false);
-	    dialog.add(new JScrollPane(textArea), BorderLayout.CENTER);
+		JTextArea textArea = new JTextArea(tuyenDuong);
+		textArea.setEditable(false);
+		dialog.add(new JScrollPane(textArea), BorderLayout.CENTER);
 
-	    dialog.setLocationRelativeTo(views);
-	    dialog.setVisible(true);
+		dialog.setLocationRelativeTo(views);
+		dialog.setVisible(true);
 	}
+
 	private void hienThiChiTietTuyenDuong2(String tuyenDuong) {
-    JDialog dialog = new JDialog(views, "Chi tiết tuyến đường", true);
-    dialog.setSize(800, 600); // Kích thước đủ lớn để hiển thị cả danh sách và bản đồ
-    dialog.setLayout(new BorderLayout());
+		JDialog dialog = new JDialog(views, "Chi tiết tuyến đường", true);
+		dialog.setSize(800, 600); // Kích thước đủ lớn để hiển thị cả danh sách và bản đồ
+		dialog.setLayout(new BorderLayout());
 
-    // Thêm label phía trên
-    dialog.add(new JLabel("Chi tiết tuyến đường"), BorderLayout.NORTH);
+		// Thêm label phía trên
+		dialog.add(new JLabel("Chi tiết tuyến đường"), BorderLayout.NORTH);
 
-    // TextArea hiển thị chi tiết tuyến đường
-    JTextArea textArea = new JTextArea(tuyenDuong);
-    textArea.setEditable(false);
-    textArea.setLineWrap(true);
-    textArea.setWrapStyleWord(true);
-    JScrollPane textScrollPane = new JScrollPane(textArea);
-    textScrollPane.setPreferredSize(new java.awt.Dimension(250, 600)); // Kích thước cố định cho danh sách
-    dialog.add(textScrollPane, BorderLayout.WEST);
+		// TextArea hiển thị chi tiết tuyến đường
+		JTextArea textArea = new JTextArea(tuyenDuong);
+		textArea.setEditable(false);
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
+		JScrollPane textScrollPane = new JScrollPane(textArea);
+		textScrollPane.setPreferredSize(new java.awt.Dimension(250, 600)); // Kích thước cố định cho danh sách
+		dialog.add(textScrollPane, BorderLayout.WEST);
 
-    // JPanel để vẽ biểu đồ
-    JPanel chartPanel = new JPanel() {
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.setColor(Color.BLACK);
+		// JPanel để vẽ biểu đồ
+		JPanel chartPanel = new JPanel() {
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(Color.BLACK);
 
-            // Parse dữ liệu tuyến đường và vẽ các trạm
-            String[] tramNames = tuyenDuong.split(", ");
-            ToaDo prevPoint = null;
+				// Parse dữ liệu tuyến đường và vẽ các trạm
+				String[] tramNames = tuyenDuong.split(", ");
+				ToaDo prevPoint = null;
 
-            for (String tramName : tramNames) {
-                TramGiao tram = models.timTram(tramName.trim()); // Hàm tìm trạm theo tên
-                if (tram != null) {
-                    ToaDo toado = tram.getToaDo();
-                    // Tọa độ được phóng to để dễ thấy trên giao diện
-                    int scaledX = toado.getX() * 50; // Scale tọa độ
-                    int scaledY = toado.getY() * 50;
-                    g.fillOval(scaledX - 5, scaledY - 5, 10, 10); // Vẽ điểm
+				for (String tramName : tramNames) {
+					TramGiao tram = models.timTram(tramName.trim()); // Hàm tìm trạm theo tên
+					if (tram != null) {
+						ToaDo toado = tram.getToaDo();
+						// Tọa độ được phóng to để dễ thấy trên giao diện
+						int scaledX = toado.getX() * 50; // Scale tọa độ
+						int scaledY = toado.getY() * 50;
+						g.fillOval(scaledX - 5, scaledY - 5, 10, 10); // Vẽ điểm
 
-                    // Vẽ tên trạm
-                    g.drawString(tram.getTenTram(), scaledX + 10, scaledY); // Vẽ tên trạm bên cạnh điểm
+						// Vẽ tên trạm
+						g.drawString(tram.getTenTram(), scaledX + 10, scaledY); // Vẽ tên trạm bên cạnh điểm
 
-                    if (prevPoint != null) {
-                        int prevScaledX = prevPoint.getX() * 50;
-                        int prevScaledY = prevPoint.getY() * 50;
-                        g.drawLine(prevScaledX, prevScaledY, scaledX, scaledY); // Vẽ đường nối
-                    }
-                    prevPoint = toado;
-                }
-            }
-        }
-    };
+						if (prevPoint != null) {
+							int prevScaledX = prevPoint.getX() * 50;
+							int prevScaledY = prevPoint.getY() * 50;
+							g.drawLine(prevScaledX, prevScaledY, scaledX, scaledY); // Vẽ đường nối
+						}
+						prevPoint = toado;
+					}
+				}
+			}
+		};
 
-    chartPanel.setPreferredSize(new java.awt.Dimension(600, 600)); // Đặt kích thước cố định
-    JScrollPane chartScrollPane = new JScrollPane(chartPanel);
-    dialog.add(chartScrollPane, BorderLayout.CENTER);
+		chartPanel.setPreferredSize(new java.awt.Dimension(600, 600)); // Đặt kích thước cố định
+		JScrollPane chartScrollPane = new JScrollPane(chartPanel);
+		dialog.add(chartScrollPane, BorderLayout.CENTER);
 
-    dialog.setLocationRelativeTo(views);
-    dialog.setVisible(true);
-}
+		dialog.setLocationRelativeTo(views);
+		dialog.setVisible(true);
+	}
 
 	public static void main(String[] args) {
+		// test 1
+//		List<DonHang> donHangList = new ArrayList<>();
+//		donHangList.add(new DonHang(1, "Trạm A", "Thường", 10, 1, 100000));
+//		donHangList.add(new DonHang(2, "Trạm A", "Hỏa tốc", 10, 3, 500000));
+//		donHangList.add(new DonHang(3, "Trạm A", "Giá trị", 10, 2, 300000));
+//		donHangList.add(new DonHang(4, "Trạm A", "Thường", 20, 1, 120000));
+//		donHangList.add(new DonHang(5, "Trạm A", "Hỏa tốc", 20, 3, 450000));
+//		donHangList.add(new DonHang(6, "Trạm A", "Giá trị", 20, 2, 320000));
+//		donHangList.add(new DonHang(7, "Trạm A", "Hỏa tốc", 20, 3, 470000));
+//		donHangList.add(new DonHang(8, "Trạm B", "Giá trị", 10, 2, 350000));
+//		donHangList.add(new DonHang(8, "Trạm C", "Giá trị", 10, 2, 350000));
+//		donHangList.add(new DonHang(8, "Trạm C", "Giá trị", 10, 2, 350000));
+//		QuanLyDon quanLyDon = new QuanLyDon(donHangList);
+//		List<Xe> xeList = new ArrayList<>();
+//		double sucChuaToiDa = 100.0; // Đơn vị: kg
+//		int soDonToiDa = 10; // Số đơn tối đa mỗi xe có thể chở
+//		// Tạo danh sách 20 xe
+//		for (int i = 1; i <= 3; i++) {
+//			int bienSo = 1000 + i; // Giả định biển số tăng dần từ 1001
+//			xeList.add(new Xe(i, bienSo, sucChuaToiDa, soDonToiDa));
+//		}
+//		QuanLyXe quanLyXe = new QuanLyXe(xeList);
+//		List<TramGiao> danhSachTram = new ArrayList<>();
+//		TramGiao tramNSX = new TramGiao(111, "Nhà sản xuất hàng hóa", 0, new ToaDo(6, 6));
+//		TramGiao tramA = new TramGiao(1, "Trạm A", 0, new ToaDo(5, 6));
+//		TramGiao tramB = new TramGiao(2, "Trạm B", 0, new ToaDo(3, 7));
+//		TramGiao tramC = new TramGiao(3, "Trạm C", 0, new ToaDo(1, 9));
+//		danhSachTram.add(tramNSX);
+//		danhSachTram.add(tramA);
+//		danhSachTram.add(tramB);
+//		danhSachTram.add(tramC);
+//		List<KhoangCachCacTram> khoangCachList = new ArrayList<>();
+//		// Khoảng cách giữa các trạm
+//		khoangCachList.add(new KhoangCachCacTram(tramNSX, tramA, 10.0, 300.0));
+//		khoangCachList.add(new KhoangCachCacTram(tramA, tramNSX, 10.0, 300.0));
+//		khoangCachList.add(new KhoangCachCacTram(tramNSX, tramB, 11.0, 500.0));
+//		khoangCachList.add(new KhoangCachCacTram(tramB, tramNSX, 11.0, 500.0));
+//		khoangCachList.add(new KhoangCachCacTram(tramA, tramB, 10, 700.0));
+//		khoangCachList.add(new KhoangCachCacTram(tramA, tramB, 9, 850.0));
+//		khoangCachList.add(new KhoangCachCacTram(tramB, tramA, 9, 850.0));
+//		khoangCachList.add(new KhoangCachCacTram(tramC, tramB, 9, 850.0));
+//		khoangCachList.add(new KhoangCachCacTram(tramB, tramC, 9, 850.0));
+//
+//		NSX nsx = new NSX("Nhà sản xuất hàng hóa", quanLyDon, quanLyXe, danhSachTram, khoangCachList);
+////run
+//		new Controller(new Model(nsx), new View());
+
+		// test2
+//		List<DonHang> donHangList = new ArrayList<>();
+//		donHangList.add(new DonHang(1, "Trạm 2", "Thường", 10, 1, 100000));
+//		donHangList.add(new DonHang(2, "Trạm 2", "Hỏa tốc", 30, 3, 500000));
+//		donHangList.add(new DonHang(3, "Trạm 2", "Giá trị", 10, 2, 300000));
+//		donHangList.add(new DonHang(4, "Trạm 3", "Thường", 20, 1, 120000));
+//		donHangList.add(new DonHang(5, "Trạm 3", "Hỏa tốc", 20, 3, 450000));
+//		donHangList.add(new DonHang(6, "Trạm 3", "Giá trị", 20, 2, 320000));
+// 		donHangList.add(new DonHang(7, "Trạm 5", "Hỏa tốc", 20, 3, 470000));
+//		donHangList.add(new DonHang(8, "Trạm 5", "Giá trị", 10, 2, 350000));
+//		donHangList.add(new DonHang(8, "Trạm 5", "Giá trị", 10, 2, 350000));
+//		donHangList.add(new DonHang(18, "Trạm 4", "Giá trị", 10, 2, 350000));
+//		donHangList.add(new DonHang(2, "Trạm 4", "Hỏa tốc", 30, 3, 500000));
+//		QuanLyDon quanLyDon = new QuanLyDon(donHangList);
+//		List<Xe> xeList = new ArrayList<>();
+//		double sucChuaToiDa = 100.0; // Đơn vị: kg
+//		int soDonToiDa = 5; // Số đơn tối đa mỗi xe có thể chở
+//		// Tạo danh sách 20 xe
+//		for (int i = 1; i <= 20; i++) {
+//			int bienSo = 1000 + i; // Giả định biển số tăng dần từ 1001
+//			xeList.add(new Xe(i, bienSo, sucChuaToiDa, soDonToiDa));
+//		}
+//		QuanLyXe quanLyXe = new QuanLyXe(xeList);
+//		List<TramGiao> danhSachTram = new ArrayList<>();
+//		TramGiao tramNSX = new TramGiao(111, "Nhà sản xuất hàng hóa", 0, new ToaDo(1, 1));
+//		TramGiao tramA = new TramGiao(1, "Trạm 1", 0, new ToaDo(4, 8));
+//		TramGiao tramB = new TramGiao(2, "Trạm 2", 0, new ToaDo(1, 4));
+//		TramGiao tramC = new TramGiao(3, "Trạm 3", 0, new ToaDo(1, 8));
+//		TramGiao tramD = new TramGiao(4, "Trạm 4", 0, new ToaDo(4, 1));
+//		TramGiao tramE = new TramGiao(5, "Trạm 5", 0, new ToaDo(4, 4));
+//		danhSachTram.add(tramNSX);
+//		danhSachTram.add(tramA);
+//		danhSachTram.add(tramB);
+//		danhSachTram.add(tramC);
+//		danhSachTram.add(tramD);
+//		danhSachTram.add(tramE);
+//		List<KhoangCachCacTram> khoangCachList = new ArrayList<>();
+//		// Khoảng cách giữa các trạm
+//		khoangCachList.add(new KhoangCachCacTram(tramNSX, tramA, 10.0, 300.0));
+//		khoangCachList.add(new KhoangCachCacTram(tramA, tramNSX, 10.0, 300.0));
+//		khoangCachList.add(new KhoangCachCacTram(tramNSX, tramB, 45.0, 800.0));
+//		khoangCachList.add(new KhoangCachCacTram(tramB, tramC, 11.0, 500.0));
+//		khoangCachList.add(new KhoangCachCacTram(tramB, tramA, 15, 700.0));
+//		khoangCachList.add(new KhoangCachCacTram(tramA, tramD, 15, 850.0));
+//		khoangCachList.add(new KhoangCachCacTram(tramD, tramB, 20, 300.0));
+//		khoangCachList.add(new KhoangCachCacTram(tramD, tramC, 35, 850.0));
+//		khoangCachList.add(new KhoangCachCacTram(tramC, tramD, 30, 850.0));
+//		khoangCachList.add(new KhoangCachCacTram(tramE, tramD, 20, 850.0));
+//		khoangCachList.add(new KhoangCachCacTram(tramC, tramE, 30, 850.0));
+//		
+//
+//		NSX nsx = new NSX("Nhà sản xuất hàng hóa", quanLyDon, quanLyXe, danhSachTram, khoangCachList);
+////run
+//		new Controller(new Model(nsx), new View());
+
+		// test3
 		List<DonHang> donHangList = new ArrayList<>();
-		donHangList.add(new DonHang(1, "Trạm A", "Thường", 10, 1, 100000));
-		donHangList.add(new DonHang(2, "Trạm A", "Hỏa tốc", 10, 3, 500000));
-		donHangList.add(new DonHang(3, "Trạm A", "Giá trị", 10, 2, 300000));
-		donHangList.add(new DonHang(4, "Trạm A", "Thường", 20, 1, 120000));
-		donHangList.add(new DonHang(5, "Trạm A", "Hỏa tốc", 20, 3, 450000));
-		donHangList.add(new DonHang(6, "Trạm A", "Giá trị", 20, 2, 320000));
-		donHangList.add(new DonHang(7, "Trạm A", "Hỏa tốc", 20, 3, 470000));
-		donHangList.add(new DonHang(8, "Trạm B", "Giá trị", 10, 2, 350000));
-		donHangList.add(new DonHang(8, "Trạm C", "Giá trị", 10, 2, 350000));
-		donHangList.add(new DonHang(8, "Trạm C", "Giá trị", 10, 2, 350000));
+		donHangList.add(new DonHang(1, "Trạm 10", "Thường", 10, 1, 100000));
+		donHangList.add(new DonHang(2, "Trạm 10", "Hỏa tốc", 30, 3, 500000));
+		donHangList.add(new DonHang(3, "Trạm 10", "Giá trị", 10, 2, 300000));
+		donHangList.add(new DonHang(4, "Trạm 3", "Thường", 20, 1, 120000));
+		donHangList.add(new DonHang(5, "Trạm 3", "Hỏa tốc", 20, 3, 450000));
+		donHangList.add(new DonHang(6, "Trạm 4", "Giá trị", 20, 2, 320000));
 		QuanLyDon quanLyDon = new QuanLyDon(donHangList);
 		List<Xe> xeList = new ArrayList<>();
-		double sucChuaToiDa = 100.0; // Đơn vị: kg
-		int soDonToiDa = 10; // Số đơn tối đa mỗi xe có thể chở
+		double sucChuaToiDa = 200.0; // Đơn vị: kg
+		int soDonToiDa = 5; // Số đơn tối đa mỗi xe có thể chở
 		// Tạo danh sách 20 xe
-		for (int i = 1; i <= 3; i++) {
+		for (int i = 1; i <= 20; i++) {
 			int bienSo = 1000 + i; // Giả định biển số tăng dần từ 1001
 			xeList.add(new Xe(i, bienSo, sucChuaToiDa, soDonToiDa));
 		}
 		QuanLyXe quanLyXe = new QuanLyXe(xeList);
 		List<TramGiao> danhSachTram = new ArrayList<>();
-		TramGiao tramNSX = new TramGiao(111, "Nhà sản xuất hàng hóa", 0, new ToaDo(6, 6));
-		TramGiao tramA = new TramGiao(1, "Trạm A", 0, new ToaDo(5, 6));
-		TramGiao tramB = new TramGiao(2, "Trạm B", 0, new ToaDo(3, 7));
-		TramGiao tramC = new TramGiao(3, "Trạm C", 0, new ToaDo(1, 9));
-		danhSachTram.add(tramNSX);
-		danhSachTram.add(tramA);
-		danhSachTram.add(tramB);
-		danhSachTram.add(tramC);
+		TramGiao tram1 = new TramGiao(1, "Nhà sản xuất hàng hóa", 0, new ToaDo(1, 1));
+		TramGiao tram2 = new TramGiao(2, "Trạm 2", 0, new ToaDo(4, 8));
+		TramGiao tram3 = new TramGiao(3, "Trạm 3", 0, new ToaDo(1, 4));
+		TramGiao tram4 = new TramGiao(4, "Trạm 4", 0, new ToaDo(1, 8));
+		TramGiao tram5 = new TramGiao(5, "Trạm 5", 0, new ToaDo(2, 5));
+		TramGiao tram6 = new TramGiao(6, "Trạm 6", 0, new ToaDo(2, 9));
+		TramGiao tram7 = new TramGiao(7, "Trạm 7", 0, new ToaDo(3, 7));
+		TramGiao tram8 = new TramGiao(8, "Trạm 8", 0, new ToaDo(5, 9));
+		TramGiao tram9 = new TramGiao(9, "Trạm 9", 0, new ToaDo(10, 10));
+		TramGiao tram10 = new TramGiao(10, "Trạm 10", 0, new ToaDo(3, 1));
+		TramGiao tram11 = new TramGiao(11, "Trạm 11", 0, new ToaDo(5, 4));
+		TramGiao tram12 = new TramGiao(12, "Trạm 12", 0, new ToaDo(5, 7));
+		TramGiao tram13 = new TramGiao(13, "Trạm 13", 0, new ToaDo(9, 2));
+		danhSachTram.add(tram1);
+		danhSachTram.add(tram2);
+		danhSachTram.add(tram3);
+		danhSachTram.add(tram4);
+		danhSachTram.add(tram5);
+		danhSachTram.add(tram6);
+		danhSachTram.add(tram7);
+		danhSachTram.add(tram8);
+		danhSachTram.add(tram9);
+		danhSachTram.add(tram10);
+		danhSachTram.add(tram11);
+		danhSachTram.add(tram12);
+		danhSachTram.add(tram13);
 		List<KhoangCachCacTram> khoangCachList = new ArrayList<>();
 		// Khoảng cách giữa các trạm
-		khoangCachList.add(new KhoangCachCacTram(tramNSX, tramA, 10.0, 300.0));
-		khoangCachList.add(new KhoangCachCacTram(tramA, tramNSX, 10.0, 300.0));
-		khoangCachList.add(new KhoangCachCacTram(tramNSX, tramB, 11.0, 500.0));
-		khoangCachList.add(new KhoangCachCacTram(tramB, tramNSX, 11.0, 500.0));
-		khoangCachList.add(new KhoangCachCacTram(tramA, tramB, 10, 700.0));
-		khoangCachList.add(new KhoangCachCacTram(tramA, tramB, 9, 850.0));
-		khoangCachList.add(new KhoangCachCacTram(tramB, tramA, 9, 850.0));
-		khoangCachList.add(new KhoangCachCacTram(tramC, tramB, 9, 850.0));
-		khoangCachList.add(new KhoangCachCacTram(tramB, tramC, 9, 850.0));
+		khoangCachList.add(new KhoangCachCacTram(tram1, tram2, 10.0, 300.0));
+		khoangCachList.add(new KhoangCachCacTram(tram2, tram1, 10.0, 300.0));
+		khoangCachList.add(new KhoangCachCacTram(tram6, tram1, 11.0, 500.0));
 
+		khoangCachList.add(new KhoangCachCacTram(tram1, tram7, 15, 700.0));
+		khoangCachList.add(new KhoangCachCacTram(tram7, tram1, 15, 850.0));
+		khoangCachList.add(new KhoangCachCacTram(tram2, tram3, 20, 300.0));
+		khoangCachList.add(new KhoangCachCacTram(tram3, tram1, 35, 850.0));
+		khoangCachList.add(new KhoangCachCacTram(tram2, tram4, 30, 850.0));
+		khoangCachList.add(new KhoangCachCacTram(tram4, tram5, 20, 850.0));
+		khoangCachList.add(new KhoangCachCacTram(tram5, tram2, 30, 850.0));
+		khoangCachList.add(new KhoangCachCacTram(tram5, tram2, 30, 850.0));
+		khoangCachList.add(new KhoangCachCacTram(tram7, tram8, 30, 850.0));
+		khoangCachList.add(new KhoangCachCacTram(tram8, tram5, 30, 850.0));
+
+		khoangCachList.add(new KhoangCachCacTram(tram7, tram9, 45.0, 800.0));
+		khoangCachList.add(new KhoangCachCacTram(tram9, tram13, 45.0, 800.0));
+		khoangCachList.add(new KhoangCachCacTram(tram13, tram7, 45.0, 800.0));
+		khoangCachList.add(new KhoangCachCacTram(tram9, tram10, 11.0, 500.0));
+		khoangCachList.add(new KhoangCachCacTram(tram10, tram11, 11.0, 500.0));
+		khoangCachList.add(new KhoangCachCacTram(tram10, tram12, 11.0, 500.0));
+		khoangCachList.add(new KhoangCachCacTram(tram10, tram12, 11.0, 500.0));
+		khoangCachList.add(new KhoangCachCacTram(tram10, tram12, 11.0, 500.0));
+		khoangCachList.add(new KhoangCachCacTram(tram12, tram6, 50.0, 500.0));
+		khoangCachList.add(new KhoangCachCacTram(tram11, tram3, 70.0, 500.0));
+		khoangCachList.add(new KhoangCachCacTram(tram11, tram7, 50.0, 500.0));
 		NSX nsx = new NSX("Nhà sản xuất hàng hóa", quanLyDon, quanLyXe, danhSachTram, khoangCachList);
 //run
 		new Controller(new Model(nsx), new View());
+
 	}
 }
