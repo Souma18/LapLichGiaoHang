@@ -27,27 +27,27 @@ public class Model {
 		this.modelCumGiao = new ModelCumGiao(nsx);
 	}
 
-	//lấy nsx
+	// lấy nsx
 	public NSX getNSX() {
 		return this.nxs;
 	}
 
-	//lấy danh sách cụm
+	// lấy danh sách cụm
 	public List<CumGiao> getListCumGiao() {
 		return modelCumGiao.getListCumGiao();
 	}
 
-	//lấy số lượng cụm
+	// lấy số lượng cụm
 	public int soLuongCumDuocPhan() {
 		return getListCumGiao().size();
 	}
 
-	//lấy ds đơn hàng cho từng xe
+	// lấy ds đơn hàng cho từng xe
 	public Map<Xe, List<DonHang>> xepHangLenXe() {
-	    return modelSapXep.sapXepHangLenXe(getListCumGiao());
+		return modelSapXep.sapXepHangLenXe(getListCumGiao());
 	}
 
-	//lấy tuyến đường
+	// lấy tuyến đường
 	public Map<CumGiao, List<TuyenDuongDuocTaoRa>> tuyenduong() {
 		List<TuyenDuongDuocTaoRa> tuyenduong = new ArrayList<TuyenDuongDuocTaoRa>();
 		Map<CumGiao, List<TuyenDuongDuocTaoRa>> map = new HashMap<CumGiao, List<TuyenDuongDuocTaoRa>>();
