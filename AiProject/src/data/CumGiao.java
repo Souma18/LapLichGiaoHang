@@ -11,6 +11,7 @@ public class CumGiao {
 	private List<Xe> listXe;
 //		private TuyenDuong tuyenDuong;
 	private double khoiLuongDon;
+
 	public CumGiao(int id) {
 		super();
 		this.id = id;
@@ -20,17 +21,18 @@ public class CumGiao {
 		this.khoiLuongDon = 0;
 	}
 //test
-	
+
 	public int getId() {
 		return id;
 	}
 
 	public CumGiao(int id, List<TramGiao> listTram, List<Xe> listXe) {
-	super();
-	this.id = id;
-	this.listTram = listTram;
-	this.listXe = listXe;
-}
+		super();
+		this.id = id;
+		this.listTram = listTram;
+		this.listXe = listXe;
+	}
+
 	public void setId(int id) {
 		this.id = id;
 	}

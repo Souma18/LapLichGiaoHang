@@ -1,7 +1,6 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import data.CumGiao;
 import data.DonHang;
@@ -10,7 +9,7 @@ import data.Xe;
 
 public class ModelSapXep {
 
-	private List<DonHang> knapsack(double sucChua, List<DonHang> danhSachDonHang) {
+	public List<DonHang> knapsack(double sucChua, List<DonHang> danhSachDonHang) {
 		double sucChuaConLai = sucChua;
 
 		if (danhSachDonHang.isEmpty() || sucChuaConLai == 0) {
@@ -44,7 +43,9 @@ public class ModelSapXep {
 	}
 
 	// sắp hàng lên xe
-	public void sapXepHangLenXe(List<CumGiao> listCumGiao) {
+	public Map<Xe, List<DonHang>> sapXepHangLenXe(List<CumGiao> listCumGiao) {
+		Map<Xe, List<DonHang>> ketQuaXepHang = new HashMap<>();
+
 		for (CumGiao cum : listCumGiao) {
 			List<Xe> listXe = cum.getListXe();
 			if (listXe.isEmpty()) {
@@ -52,32 +53,35 @@ public class ModelSapXep {
 				continue;
 			}
 
-			Xe xe = listXe.get(0);
-			double sucChuaToiDa = xe.getSucChuaToiDa();
-			List<DonHang> allDonHang = new ArrayList<>();
-			List<TramGiao> tramList = cum.getListTram();
+			for (Xe xe : listXe) {
+				double sucChuaToiDa = xe.getSucChuaToiDa();
+				List<DonHang> allDonHang = new ArrayList<>();
+				List<TramGiao> tramList = cum.getListTram();
 
-			// Tập hợp tất cả đơn hàng từ các trạm giao
-			for (TramGiao tram : tramList) {
-				allDonHang.addAll(tram.getListDonHang());
-			}
+				// Tập hợp tất cả đơn hàng từ các trạm giao
+				for (TramGiao tram : tramList) {
+					allDonHang.addAll(tram.getListDonHang());
+				}
 
-			// Gọi hàm knapsack để lấy danh sách đơn hàng phù hợp
-			List<DonHang> danhSachXep = knapsack(sucChuaToiDa, allDonHang);
+				// Gọi hàm knapsack để lấy danh sách đơn hàng phù hợp
+				List<DonHang> danhSachXep = knapsack(sucChuaToiDa, allDonHang);
 
-			// Gắn danh sách đơn hàng vào xe
-			xe.setDsDonHang(danhSachXep);
+				// Gắn danh sách đơn hàng vào xe
+				xe.setDsDonHang(danhSachXep);
 
-			// Lưu trạng thái xe vào cụm giao
-			cum.updateXe(xe); // Cập nhật xe với danh sách đơn hàng mới
+				// Lưu trạng thái xe vào cụm giao
+				ketQuaXepHang.put(xe, danhSachXep);
 
-			// Xóa các đơn hàng đã được sắp xếp khỏi trạm giao
-			for (DonHang dh : danhSachXep) {
-				TramGiao tram = cum.getTram(dh.getTramGiao()); // Tìm trạm của đơn hàng
-				if (tram != null) {
-					tram.xoaDonHang(dh); // Xóa đơn hàng khỏi trạm
+				// Xóa các đơn hàng đã được sắp xếp khỏi trạm giao
+				for (DonHang dh : danhSachXep) {
+					TramGiao tram = cum.getTram(dh.getTramGiao());
+					if (tram != null) {
+						tram.xoaDonHang(dh);
+					}
 				}
 			}
 		}
+		return ketQuaXepHang;
 	}
+
 }

@@ -106,97 +106,100 @@ public class Controller {
 			entry.getValue().get(0).getTuyenDuong().forEach(tram -> {
 				buiBuffer.append(tram.getTenTram()).append(", ");
 			});
-			views.addRowToRightPanel("Cum " + entry.getKey().getId(), "xe " + entry.getValue().get(0).getXe().getId(), 0,
-					buiBuffer);
+			views.addRowToRightPanel("Cum " + entry.getKey().getId(), "xe " + entry.getValue().get(0).getXe().getId(),
+					0, buiBuffer);
 //			String cum, String xeId, int soLuongHang, String tuyenDuong
 		}
 	}
+
 	// Lắng nghe sự kiện khi click vào bảng
 	private void themSuKienChoBang() {
-	    views.getRightPanelTable().addMouseListener(new java.awt.event.MouseAdapter() {
-	        @Override
-	        public void mouseClicked(java.awt.event.MouseEvent e) {
-	            int row = views.getRightPanelTable().getSelectedRow(); // Lấy dòng được chọn
-	            if (row != -1) {
-	            	  String tuyenDuong = views.getTableModel().getValueAt(row, 3).toString(); // Chuyển StringBuffer thành String
-	                hienThiChiTietTuyenDuong2(tuyenDuong);
-	            }
-	        }
-	    });
+		views.getRightPanelTable().addMouseListener(new java.awt.event.MouseAdapter() {
+			@Override
+			public void mouseClicked(java.awt.event.MouseEvent e) {
+				int row = views.getRightPanelTable().getSelectedRow(); // Lấy dòng được chọn
+				if (row != -1) {
+					String tuyenDuong = views.getTableModel().getValueAt(row, 3).toString(); // Chuyển StringBuffer
+																								// thành String
+					hienThiChiTietTuyenDuong2(tuyenDuong);
+				}
+			}
+		});
 	}
 
 	// Hàm hiển thị chi tiết tuyến đường trong cửa sổ nhỏ
 	private void hienThiChiTietTuyenDuong(String tuyenDuong) {
-	    JDialog dialog = new JDialog(views, "Chi tiết tuyến đường", true);
-	    dialog.setSize(400, 300);
-	    dialog.setLayout(new BorderLayout());
-	    dialog.add(new JLabel("Chi tiết tuyến đường"), BorderLayout.NORTH);
+		JDialog dialog = new JDialog(views, "Chi tiết tuyến đường", true);
+		dialog.setSize(400, 300);
+		dialog.setLayout(new BorderLayout());
+		dialog.add(new JLabel("Chi tiết tuyến đường"), BorderLayout.NORTH);
 
-	    JTextArea textArea = new JTextArea(tuyenDuong);
-	    textArea.setEditable(false);
-	    dialog.add(new JScrollPane(textArea), BorderLayout.CENTER);
+		JTextArea textArea = new JTextArea(tuyenDuong);
+		textArea.setEditable(false);
+		dialog.add(new JScrollPane(textArea), BorderLayout.CENTER);
 
-	    dialog.setLocationRelativeTo(views);
-	    dialog.setVisible(true);
+		dialog.setLocationRelativeTo(views);
+		dialog.setVisible(true);
 	}
+
 	private void hienThiChiTietTuyenDuong2(String tuyenDuong) {
-    JDialog dialog = new JDialog(views, "Chi tiết tuyến đường", true);
-    dialog.setSize(800, 600); // Kích thước đủ lớn để hiển thị cả danh sách và bản đồ
-    dialog.setLayout(new BorderLayout());
+		JDialog dialog = new JDialog(views, "Chi tiết tuyến đường", true);
+		dialog.setSize(800, 600); // Kích thước đủ lớn để hiển thị cả danh sách và bản đồ
+		dialog.setLayout(new BorderLayout());
 
-    // Thêm label phía trên
-    dialog.add(new JLabel("Chi tiết tuyến đường"), BorderLayout.NORTH);
+		// Thêm label phía trên
+		dialog.add(new JLabel("Chi tiết tuyến đường"), BorderLayout.NORTH);
 
-    // TextArea hiển thị chi tiết tuyến đường
-    JTextArea textArea = new JTextArea(tuyenDuong);
-    textArea.setEditable(false);
-    textArea.setLineWrap(true);
-    textArea.setWrapStyleWord(true);
-    JScrollPane textScrollPane = new JScrollPane(textArea);
-    textScrollPane.setPreferredSize(new java.awt.Dimension(250, 600)); // Kích thước cố định cho danh sách
-    dialog.add(textScrollPane, BorderLayout.WEST);
+		// TextArea hiển thị chi tiết tuyến đường
+		JTextArea textArea = new JTextArea(tuyenDuong);
+		textArea.setEditable(false);
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
+		JScrollPane textScrollPane = new JScrollPane(textArea);
+		textScrollPane.setPreferredSize(new java.awt.Dimension(250, 600)); // Kích thước cố định cho danh sách
+		dialog.add(textScrollPane, BorderLayout.WEST);
 
-    // JPanel để vẽ biểu đồ
-    JPanel chartPanel = new JPanel() {
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.setColor(Color.BLACK);
+		// JPanel để vẽ biểu đồ
+		JPanel chartPanel = new JPanel() {
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(Color.BLACK);
 
-            // Parse dữ liệu tuyến đường và vẽ các trạm
-            String[] tramNames = tuyenDuong.split(", ");
-            ToaDo prevPoint = null;
+				// Parse dữ liệu tuyến đường và vẽ các trạm
+				String[] tramNames = tuyenDuong.split(", ");
+				ToaDo prevPoint = null;
 
-            for (String tramName : tramNames) {
-                TramGiao tram = models.timTram(tramName.trim()); // Hàm tìm trạm theo tên
-                if (tram != null) {
-                    ToaDo toado = tram.getToaDo();
-                    // Tọa độ được phóng to để dễ thấy trên giao diện
-                    int scaledX = toado.getX() * 50; // Scale tọa độ
-                    int scaledY = toado.getY() * 50;
-                    g.fillOval(scaledX - 5, scaledY - 5, 10, 10); // Vẽ điểm
+				for (String tramName : tramNames) {
+					TramGiao tram = models.timTram(tramName.trim()); // Hàm tìm trạm theo tên
+					if (tram != null) {
+						ToaDo toado = tram.getToaDo();
+						// Tọa độ được phóng to để dễ thấy trên giao diện
+						int scaledX = toado.getX() * 50; // Scale tọa độ
+						int scaledY = toado.getY() * 50;
+						g.fillOval(scaledX - 5, scaledY - 5, 10, 10); // Vẽ điểm
 
-                    // Vẽ tên trạm
-                    g.drawString(tram.getTenTram(), scaledX + 10, scaledY); // Vẽ tên trạm bên cạnh điểm
+						// Vẽ tên trạm
+						g.drawString(tram.getTenTram(), scaledX + 10, scaledY); // Vẽ tên trạm bên cạnh điểm
 
-                    if (prevPoint != null) {
-                        int prevScaledX = prevPoint.getX() * 50;
-                        int prevScaledY = prevPoint.getY() * 50;
-                        g.drawLine(prevScaledX, prevScaledY, scaledX, scaledY); // Vẽ đường nối
-                    }
-                    prevPoint = toado;
-                }
-            }
-        }
-    };
+						if (prevPoint != null) {
+							int prevScaledX = prevPoint.getX() * 50;
+							int prevScaledY = prevPoint.getY() * 50;
+							g.drawLine(prevScaledX, prevScaledY, scaledX, scaledY); // Vẽ đường nối
+						}
+						prevPoint = toado;
+					}
+				}
+			}
+		};
 
-    chartPanel.setPreferredSize(new java.awt.Dimension(600, 600)); // Đặt kích thước cố định
-    JScrollPane chartScrollPane = new JScrollPane(chartPanel);
-    dialog.add(chartScrollPane, BorderLayout.CENTER);
+		chartPanel.setPreferredSize(new java.awt.Dimension(600, 600)); // Đặt kích thước cố định
+		JScrollPane chartScrollPane = new JScrollPane(chartPanel);
+		dialog.add(chartScrollPane, BorderLayout.CENTER);
 
-    dialog.setLocationRelativeTo(views);
-    dialog.setVisible(true);
-}
+		dialog.setLocationRelativeTo(views);
+		dialog.setVisible(true);
+	}
 
 	public static void main(String[] args) {
 		List<DonHang> donHangList = new ArrayList<>();
