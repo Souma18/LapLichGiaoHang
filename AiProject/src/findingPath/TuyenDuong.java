@@ -17,8 +17,9 @@ public class TuyenDuong {
 	private List<Nodee> listNode;
 
 	public TuyenDuong() {
-		
+
 	}
+
 	public List<Nodee> getListNode() {
 		return listNode;
 	}
@@ -44,24 +45,23 @@ public class TuyenDuong {
 	public void setListTuyenDuong(List<List<TramGiao>> listTuyenDuong) {
 		this.listTuyenDuong = listTuyenDuong;
 	}
-	//convert nodee=> tram
-		public List<List<TramGiao>> convertPath(){
-			List<List<TramGiao>>result=new LinkedList<>();
-			for (List<Nodee> list : allPaths) {
-				List l=new LinkedList<>();
-				for (Nodee n : list) {
-					l.add(n.getTram());
-				}
-				result.add(l);
+
+	// convert nodee=> tram
+	public List<List<TramGiao>> convertPath() {
+		List<List<TramGiao>> result = new LinkedList<>();
+		for (List<Nodee> list : allPaths) {
+			List l = new LinkedList<>();
+			for (Nodee n : list) {
+				l.add(n.getTram());
 			}
-			return result;
+			result.add(l);
 		}
-		
-		
+		return result;
+	}
+
 	// hàm execute
 	public void addTuyenDuong(CumGiao cluster) {
 		allPaths = new LinkedList<>();
-		// tư map chính xác định lộ trình
 		this.createNodee(banDo);
 
 		// first path
@@ -90,9 +90,11 @@ public class TuyenDuong {
 			firstPath.add(afterBegin);
 			afterBegin = afterBegin.getParent();
 		}
-		Collections.reverse(firstPath);
+//		Collections.reverse(firstPath);
 		firstPath.remove(firstPath.size()-1);
-        // allPaths.add(firstPath);
+//		allPaths.add(firstPath);
+//		Collections.reverse(firstPath);
+//		allPaths.add(firstPath);
 		// list các đường đi
 		for (int i = 0; i < listCheckPoint.size() - 1; i++) {
 			Nodee start = listCheckPoint.get(i);
@@ -130,7 +132,13 @@ public class TuyenDuong {
 			for (Nodee nodee : WayReturn) {
 				li.add(nodee);
 			}
-			temp.addAll(firstPath);
+//			temp.addAll(firstPath);
+			if(!li.get(0).equals(listCheckPoint.get(0))) {
+				List<Nodee>listFirstWay=new LinkedList<>();
+				listFirstWay=alDijkstra2Node(li, li.get(0), listCheckPoint.get(0));
+				Collections.reverse(listFirstWay);
+				temp.addAll(listFirstWay);
+			}
 			temp.addAll(li);
 			li.clear();
 			for (Nodee nodee : temp) {
@@ -140,7 +148,7 @@ public class TuyenDuong {
 		}
 
 		// In các đường đi
-//		printAllpaths(allPaths);
+		printAllpaths(allPaths);
 	}
 
 // check valid list in cluster
@@ -442,5 +450,3 @@ public class TuyenDuong {
 		}
 	}
 }
-
-

@@ -16,7 +16,6 @@ public class NSX {
 
 	public NSX(String tenNSX, QuanLyDon quanLyDon, QuanLyXe quanLyXe, List<TramGiao> dsTram,
 			List<KhoangCachCacTram> kc) {
-		super();
 		TenNSX = tenNSX;
 		this.quanLyDon = quanLyDon;
 		this.quanLyXe = quanLyXe;
