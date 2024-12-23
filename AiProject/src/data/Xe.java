@@ -1,5 +1,6 @@
 package data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Xe {
@@ -16,6 +17,7 @@ public class Xe {
 		this.sucChuaToiDa = sucChuaToiDa;
 		this.soDonToiDa = soDonToiDa;
 		this.soDiemDatDuoc = 0;
+		this.dsDonHang = new ArrayList<DonHang>();
 	}
 
 	public int getId() {
@@ -66,6 +68,9 @@ public class Xe {
 		this.dsDonHang = dsDonHang;
 	}
 	public int soLuongDon() {
+		return dsDonHang.size();
+	}
+	public int getSoLuongDon() {
 		return dsDonHang.size();
 	}
 }

@@ -20,16 +20,18 @@ public class Model {
 	private ModelCumGiao modelCumGiao;
 	private ModelTuyenDuong modelTuyenDuong;
 	private ModelSapXep modelSapXep;
-	private NSX nxs;
+	private NSX nsx;
 
 	public Model(NSX nsx) {
-		this.nxs = nsx;
+		this.nsx = nsx;
 		this.modelCumGiao = new ModelCumGiao(nsx);
+		this.modelSapXep = new ModelSapXep();
+		capNhatNSX();
 	}
 
 	// lấy nsx
 	public NSX getNSX() {
-		return this.nxs;
+		return this.nsx;
 	}
 
 	// lấy danh sách cụm
@@ -52,7 +54,7 @@ public class Model {
 		List<TuyenDuongDuocTaoRa> tuyenduong = new ArrayList<TuyenDuongDuocTaoRa>();
 		Map<CumGiao, List<TuyenDuongDuocTaoRa>> map = new HashMap<CumGiao, List<TuyenDuongDuocTaoRa>>();
 		for (CumGiao cumGiao : modelCumGiao.getListCumGiao()) {
-			modelTuyenDuong = new ModelTuyenDuong(cumGiao, new BanDo(nxs.getKc()), cumGiao.getListXe());
+			modelTuyenDuong = new ModelTuyenDuong(cumGiao, new BanDo(nsx.getKc()), cumGiao.getListXe());
 			tuyenduong = modelTuyenDuong.listTuyenDuongTaoRa();
 			map.put(cumGiao, tuyenduong);
 		}
@@ -60,11 +62,16 @@ public class Model {
 	}
 
 	public TramGiao timTram(String name) {
-		for (TramGiao tram : nxs.getDsTram()) {
+		for (TramGiao tram : nsx.getDsTram()) {
 			if (name.equals(tram.getTenTram())) {
 				return tram;
 			}
 		}
 		return null;
 	}
+public void capNhatNSX() {
+	nsx.capNhatDonHangChoXe(xepHangLenXe());
+	nsx.CapNhatDonChoTram();
 }
+}
+
