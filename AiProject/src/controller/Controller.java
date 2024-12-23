@@ -203,107 +203,7 @@ public class Controller {
 	}
 
 	public static void main(String[] args) {
-		// test 1
-//		List<DonHang> donHangList = new ArrayList<>();
-//		donHangList.add(new DonHang(1, "Trạm A", "Thường", 10, 1, 100000));
-//		donHangList.add(new DonHang(2, "Trạm A", "Hỏa tốc", 10, 3, 500000));
-//		donHangList.add(new DonHang(3, "Trạm A", "Giá trị", 10, 2, 300000));
-//		donHangList.add(new DonHang(4, "Trạm A", "Thường", 20, 1, 120000));
-//		donHangList.add(new DonHang(5, "Trạm A", "Hỏa tốc", 20, 3, 450000));
-//		donHangList.add(new DonHang(6, "Trạm A", "Giá trị", 20, 2, 320000));
-//		donHangList.add(new DonHang(7, "Trạm A", "Hỏa tốc", 20, 3, 470000));
-//		donHangList.add(new DonHang(8, "Trạm B", "Giá trị", 10, 2, 350000));
-//		donHangList.add(new DonHang(8, "Trạm C", "Giá trị", 10, 2, 350000));
-//		donHangList.add(new DonHang(8, "Trạm C", "Giá trị", 10, 2, 350000));
-//		QuanLyDon quanLyDon = new QuanLyDon(donHangList);
-//		List<Xe> xeList = new ArrayList<>();
-//		double sucChuaToiDa = 100.0; // Đơn vị: kg
-//		int soDonToiDa = 10; // Số đơn tối đa mỗi xe có thể chở
-//		// Tạo danh sách 20 xe
-//		for (int i = 1; i <= 3; i++) {
-//			int bienSo = 1000 + i; // Giả định biển số tăng dần từ 1001
-//			xeList.add(new Xe(i, bienSo, sucChuaToiDa, soDonToiDa));
-//		}
-//		QuanLyXe quanLyXe = new QuanLyXe(xeList);
-//		List<TramGiao> danhSachTram = new ArrayList<>();
-//		TramGiao tramNSX = new TramGiao(111, "Nhà sản xuất hàng hóa", 0, new ToaDo(6, 6));
-//		TramGiao tramA = new TramGiao(1, "Trạm A", 0, new ToaDo(5, 6));
-//		TramGiao tramB = new TramGiao(2, "Trạm B", 0, new ToaDo(3, 7));
-//		TramGiao tramC = new TramGiao(3, "Trạm C", 0, new ToaDo(1, 9));
-//		danhSachTram.add(tramNSX);
-//		danhSachTram.add(tramA);
-//		danhSachTram.add(tramB);
-//		danhSachTram.add(tramC);
-//		List<KhoangCachCacTram> khoangCachList = new ArrayList<>();
-//		// Khoảng cách giữa các trạm
-//		khoangCachList.add(new KhoangCachCacTram(tramNSX, tramA, 10.0, 300.0));
-//		khoangCachList.add(new KhoangCachCacTram(tramA, tramNSX, 10.0, 300.0));
-//		khoangCachList.add(new KhoangCachCacTram(tramNSX, tramB, 11.0, 500.0));
-//		khoangCachList.add(new KhoangCachCacTram(tramB, tramNSX, 11.0, 500.0));
-//		khoangCachList.add(new KhoangCachCacTram(tramA, tramB, 10, 700.0));
-//		khoangCachList.add(new KhoangCachCacTram(tramA, tramB, 9, 850.0));
-//		khoangCachList.add(new KhoangCachCacTram(tramB, tramA, 9, 850.0));
-//		khoangCachList.add(new KhoangCachCacTram(tramC, tramB, 9, 850.0));
-//		khoangCachList.add(new KhoangCachCacTram(tramB, tramC, 9, 850.0));
-//
-//		NSX nsx = new NSX("Nhà sản xuất hàng hóa", quanLyDon, quanLyXe, danhSachTram, khoangCachList);
-////run
-//		new Controller(new Model(nsx), new View());
-
-		// test2
-//		List<DonHang> donHangList = new ArrayList<>();
-//		donHangList.add(new DonHang(1, "Trạm 2", "Thường", 10, 1, 100000));
-//		donHangList.add(new DonHang(2, "Trạm 2", "Hỏa tốc", 30, 3, 500000));
-//		donHangList.add(new DonHang(3, "Trạm 2", "Giá trị", 10, 2, 300000));
-//		donHangList.add(new DonHang(4, "Trạm 3", "Thường", 20, 1, 120000));
-//		donHangList.add(new DonHang(5, "Trạm 3", "Hỏa tốc", 20, 3, 450000));
-//		donHangList.add(new DonHang(6, "Trạm 3", "Giá trị", 20, 2, 320000));
-// 		donHangList.add(new DonHang(7, "Trạm 5", "Hỏa tốc", 20, 3, 470000));
-//		donHangList.add(new DonHang(8, "Trạm 5", "Giá trị", 10, 2, 350000));
-//		donHangList.add(new DonHang(8, "Trạm 5", "Giá trị", 10, 2, 350000));
-//		donHangList.add(new DonHang(18, "Trạm 4", "Giá trị", 10, 2, 350000));
-//		donHangList.add(new DonHang(2, "Trạm 4", "Hỏa tốc", 30, 3, 500000));
-//		QuanLyDon quanLyDon = new QuanLyDon(donHangList);
-//		List<Xe> xeList = new ArrayList<>();
-//		double sucChuaToiDa = 100.0; // Đơn vị: kg
-//		int soDonToiDa = 5; // Số đơn tối đa mỗi xe có thể chở
-//		// Tạo danh sách 20 xe
-//		for (int i = 1; i <= 20; i++) {
-//			int bienSo = 1000 + i; // Giả định biển số tăng dần từ 1001
-//			xeList.add(new Xe(i, bienSo, sucChuaToiDa, soDonToiDa));
-//		}
-//		QuanLyXe quanLyXe = new QuanLyXe(xeList);
-//		List<TramGiao> danhSachTram = new ArrayList<>();
-//		TramGiao tramNSX = new TramGiao(111, "Nhà sản xuất hàng hóa", 0, new ToaDo(1, 1));
-//		TramGiao tramA = new TramGiao(1, "Trạm 1", 0, new ToaDo(4, 8));
-//		TramGiao tramB = new TramGiao(2, "Trạm 2", 0, new ToaDo(1, 4));
-//		TramGiao tramC = new TramGiao(3, "Trạm 3", 0, new ToaDo(1, 8));
-//		TramGiao tramD = new TramGiao(4, "Trạm 4", 0, new ToaDo(4, 1));
-//		TramGiao tramE = new TramGiao(5, "Trạm 5", 0, new ToaDo(4, 4));
-//		danhSachTram.add(tramNSX);
-//		danhSachTram.add(tramA);
-//		danhSachTram.add(tramB);
-//		danhSachTram.add(tramC);
-//		danhSachTram.add(tramD);
-//		danhSachTram.add(tramE);
-//		List<KhoangCachCacTram> khoangCachList = new ArrayList<>();
-//		// Khoảng cách giữa các trạm
-//		khoangCachList.add(new KhoangCachCacTram(tramNSX, tramA, 10.0, 300.0));
-//		khoangCachList.add(new KhoangCachCacTram(tramA, tramNSX, 10.0, 300.0));
-//		khoangCachList.add(new KhoangCachCacTram(tramNSX, tramB, 45.0, 800.0));
-//		khoangCachList.add(new KhoangCachCacTram(tramB, tramC, 11.0, 500.0));
-//		khoangCachList.add(new KhoangCachCacTram(tramB, tramA, 15, 700.0));
-//		khoangCachList.add(new KhoangCachCacTram(tramA, tramD, 15, 850.0));
-//		khoangCachList.add(new KhoangCachCacTram(tramD, tramB, 20, 300.0));
-//		khoangCachList.add(new KhoangCachCacTram(tramD, tramC, 35, 850.0));
-//		khoangCachList.add(new KhoangCachCacTram(tramC, tramD, 30, 850.0));
-//		khoangCachList.add(new KhoangCachCacTram(tramE, tramD, 20, 850.0));
-//		khoangCachList.add(new KhoangCachCacTram(tramC, tramE, 30, 850.0));
-//		
-//
-//		NSX nsx = new NSX("Nhà sản xuất hàng hóa", quanLyDon, quanLyXe, danhSachTram, khoangCachList);
-////run
-//		new Controller(new Model(nsx), new View());
+		
 
 		// test3
 		List<DonHang> donHangList = new ArrayList<>();
@@ -382,6 +282,44 @@ public class Controller {
 		NSX nsx = new NSX("Nhà sản xuất hàng hóa", quanLyDon, quanLyXe, danhSachTram, khoangCachList);
 //run
 		new Controller(new Model(nsx), new View());
+		
+		//test 4
+		
+//		List<Xe> xeList = new ArrayList<>();
+//		double sucChuaToiDa = 100.0;
+//		int soDonToiDa = 10;
+//		// Số đơn tối đa mỗi xe có thể chở
+//		for (int i = 1; i <= 10; i++) {
+//			int bienSo = 1000 + i;
+//			// biển số tăng dần từ 1001
+//			xeList.add(new Xe(i, bienSo, sucChuaToiDa, soDonToiDa));
+//		}
+//		List<TramGiao> danhSachTramGiao = new ArrayList<TramGiao>();
+//		TramGiao batDau = new TramGiao(1, "Nhà sản xuất nước ngọt", 0, new ToaDo(3, 3));
+//		TramGiao tram1 = new TramGiao(2, "Quận 1", 100000, new ToaDo(2, 5));
+//		TramGiao tram2 = new TramGiao(2, "Quận 3", 100000, new ToaDo(2, 5));
+//		TramGiao tram3 = new TramGiao(2, "Quận 5", 100000, new ToaDo(2, 5));
+//		TramGiao tram4 = new TramGiao(2, "Quận 6", 100000, new ToaDo(6, 4));
+//		TramGiao tram5 = new TramGiao(2, "Quận 7", 100000, new ToaDo(3, 6));
+//		TramGiao tram6 = new TramGiao(2, "Quận 10", 100000, new ToaDo(3, 13));
+//		TramGiao tram7 = new TramGiao(2, "Quận 12", 100000, new ToaDo(4, 18));
+//		TramGiao tram8 = new TramGiao(2, "Thành Phố Thủ Đức", 100000, new ToaDo(8,19));
+//		TramGiao tram9 = new TramGiao(2, "Quận Tân Bình", 100000, new ToaDo(11, 13));
+//		TramGiao tram10 = new TramGiao(2, "Quận Gò Vấp", 100000, new ToaDo(3, 13));
+//		danhSachTramGiao.add(batDau);
+//		danhSachTramGiao.add(tram1);
+//		danhSachTramGiao.add(tram2);
+//		danhSachTramGiao.add(tram3);
+//		danhSachTramGiao.add(tram4);
+//		danhSachTramGiao.add(tram5);
+//		danhSachTramGiao.add(tram6);
+//		danhSachTramGiao.add(tram7);
+//		danhSachTramGiao.add(tram8);
+//		danhSachTramGiao.add(tram9);
+//		danhSachTramGiao.add(tram10);
+//		List<KhoangCachCacTram> map = new ArrayList<KhoangCachCacTram>();
+//		map.add(new KhoangCachCacTram(batDau, tram1, 5.0, 300.0));
+//		map.add(new KhoangCachCacTram(tram1, batDau, 5.0, 300.0));
 
 	}
 }
