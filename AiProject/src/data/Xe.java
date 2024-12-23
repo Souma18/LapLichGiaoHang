@@ -67,10 +67,9 @@ public class Xe {
 	public void setDsDonHang(List<DonHang> dsDonHang) {
 		this.dsDonHang = dsDonHang;
 	}
-	public int soLuongDon() {
-		return dsDonHang.size();
-	}
+
 	public int getSoLuongDon() {
-		return dsDonHang.size();
+		return dsDonHang.size() - 1;
 	}
+
 }

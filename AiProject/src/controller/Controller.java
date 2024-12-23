@@ -205,7 +205,6 @@ public class Controller {
 	}
 
 	public static void main(String[] args) {
-		
 
 		// test3
 //		List<DonHang> donHangList = new ArrayList<>();
@@ -285,8 +284,8 @@ public class Controller {
 ////run
 //		new Controller(new Model(nsx), new View());
 //		
-		//test 4
-		
+		// test 4
+
 		List<Xe> xeList = new ArrayList<>();
 		double sucChuaToiDa = 100.0;
 		int soDonToiDa = 10;
@@ -297,59 +296,96 @@ public class Controller {
 			xeList.add(new Xe(i, bienSo, sucChuaToiDa, soDonToiDa));
 		}
 		List<TramGiao> danhSachTramGiao = new ArrayList<TramGiao>();
-		TramGiao batDau = new TramGiao(1111, "Nhà sản xuất nước ngọt", 0, new ToaDo(3, 3));
-		TramGiao tram1 = new TramGiao(1 ,"Quận 1", 100000, new ToaDo(2, 5));
-		TramGiao tram2 = new TramGiao(2, "Quận 3", 100000, new ToaDo(2, 5));
-		TramGiao tram3 = new TramGiao(3, "Quận 5", 100000, new ToaDo(2, 5));
-		TramGiao tram4 = new TramGiao(4, "Quận 6", 100000, new ToaDo(6, 4));
-		TramGiao tram5 = new TramGiao(5, "Quận 7", 100000, new ToaDo(3, 6));
-		TramGiao tram6 = new TramGiao(6, "Quận 10", 100000, new ToaDo(3, 13));
-		TramGiao tram7 = new TramGiao(7, "Quận 12", 100000, new ToaDo(4, 18));
-		TramGiao tram8 = new TramGiao(8, "Thành Phố Thủ Đức", 100000, new ToaDo(8,19));
-		TramGiao tram9 = new TramGiao(9, "Quận Tân Bình", 100000, new ToaDo(11, 13));
-		TramGiao tram10 = new TramGiao(10, "Quận Gò Vấp", 100000, new ToaDo(3, 13));
+		TramGiao batDau = new TramGiao(111, "Nhà sản xuất nước ngọt", 11111, new ToaDo(8, 6));
+		TramGiao quan1 = new TramGiao(1, "Quận 1", 100000, new ToaDo(6, 7));
+		TramGiao quan3 = new TramGiao(2, "Quận 3", 100000, new ToaDo(11, 7));
+		TramGiao quan5 = new TramGiao(3, "Quận 5", 100000, new ToaDo(11, 3));
+		TramGiao quan6 = new TramGiao(4, "Quận 6", 100000, new ToaDo(3, 8));
+		TramGiao quan7 = new TramGiao(5, "Quận 7", 100000, new ToaDo(2, 4));
+		TramGiao quan10 = new TramGiao(6, "Quận 10", 100000, new ToaDo(5, 2));
+		TramGiao quan12 = new TramGiao(7, "Quận 12", 100000, new ToaDo(13, 8));
+		TramGiao tpThuDuc = new TramGiao(8, "Thành Phố Thủ Đức", 100000, new ToaDo(16, 6));
+		TramGiao quanTanBinh = new TramGiao(9, "Quận Tân Bình", 100000, new ToaDo(9, 1));
+		TramGiao quanGoVap = new TramGiao(10, "Quận Gò Vấp", 100000, new ToaDo(9, 9));
+
 		danhSachTramGiao.add(batDau);
-		danhSachTramGiao.add(tram1);
-		danhSachTramGiao.add(tram2);
-		danhSachTramGiao.add(tram3);
-		danhSachTramGiao.add(tram4);
-		danhSachTramGiao.add(tram5);
-		danhSachTramGiao.add(tram6);
-		danhSachTramGiao.add(tram7);
-		danhSachTramGiao.add(tram8);
-		danhSachTramGiao.add(tram9);
-		danhSachTramGiao.add(tram10);
+		danhSachTramGiao.add(quan1);
+		danhSachTramGiao.add(quan3);
+		danhSachTramGiao.add(quan5);
+		danhSachTramGiao.add(quan6);
+		danhSachTramGiao.add(quan7);
+		danhSachTramGiao.add(quan10);
+		danhSachTramGiao.add(quan12);
+		danhSachTramGiao.add(tpThuDuc);
+		danhSachTramGiao.add(quanTanBinh);
+		danhSachTramGiao.add(quanGoVap);
+
 		List<KhoangCachCacTram> map = new ArrayList<KhoangCachCacTram>();
-		map.add(new KhoangCachCacTram(batDau, tram1, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(batDau, tram2, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(batDau, tram3, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(batDau, tram8, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(batDau, tram9, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(batDau, tram10, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(tram1, batDau, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(tram1, tram5, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(tram2, tram8, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(tram3, tram9, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(tram4, tram1, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(tram4, tram5, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(tram5, tram1, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(tram5, tram4, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(tram5, tram6, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(tram6, tram5, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(tram7, tram8, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(tram8, batDau, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(tram8, tram2, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(tram8, tram7, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(tram9, batDau, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(tram9, tram3, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(tram10, batDau, 5.0, 300.0));
-		map.add(new KhoangCachCacTram(tram10, tram7, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(batDau, quan1, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(batDau, quan3, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(batDau, quan5, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(batDau, tpThuDuc, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(batDau, quanTanBinh, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(batDau, quanGoVap, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(quan1, batDau, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(quan1, quan7, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(quan1, tpThuDuc, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(quan5, quanTanBinh, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(quan6, quan1, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(quan6, quan7, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(quan6, quan1, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(quan7, quan6, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(quan7, quan10, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(quan10, quan7, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(quan12, tpThuDuc, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(tpThuDuc, batDau, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(tpThuDuc, quan3, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(tpThuDuc, quan12, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(quanTanBinh, batDau, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(quanTanBinh, quan5, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(quanGoVap, batDau, 5.0, 300.0));
+		map.add(new KhoangCachCacTram(quanGoVap, quan12, 5.0, 300.0));
+
 		List<DonHang> donHangList = new ArrayList<>();
-		donHangList.add(new DonHang(1, "Quận 10", "Thường", 10, 1, 100000));
-		
-		QuanLyDon quanLyDon = new QuanLyDon(donHangList);
-		NSX nsx = new NSX("Nhà sản xuất hàng hóa", quanLyDon, new QuanLyXe(xeList), danhSachTramGiao, map);
-	//run
-			new Controller(new Model(nsx), new View());
+		donHangList.add(new DonHang(1, "Quận 1", "Thường", 10, 2, 1000000));
+		donHangList.add(new DonHang(2, "Quận 1", "Hỏa Tốc", 10, 1, 1000000));
+		donHangList.add(new DonHang(4, "Quận 1", "Quan Trọng", 10, 1, 1000000));
+		donHangList.add(new DonHang(5, "Quận 3", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(6, "Quận 3", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(7, "Quận 3", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(8, "Quận 5", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(9, "Quận 5", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(10, "Quận 6", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(11, "Quận 6", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(12, "Quận 6", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(13, "Quận 6", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(14, "Quận 6", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(15, "Quận 7", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(16, "Quận 7", "Hỏa Tốc", 10, 1, 1000000));
+		donHangList.add(new DonHang(17, "Quận 7", "Hỏa Tốc", 10, 1, 1000000));
+		donHangList.add(new DonHang(18, "Quận 7", "Hỏa Tốc", 10, 1, 1000000));
+		donHangList.add(new DonHang(19, "Quận 10", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(20, "Quận 10", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(21, "Quận 10", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(22, "Quận 10", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(23, "Quận 10", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(24, "Quận 10", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(25, "Quận 12", "Hỏa Tốc", 10, 1, 1000000));
+		donHangList.add(new DonHang(26, "Quận 12", "Quan Trọng", 10, 1, 1000000));
+		donHangList.add(new DonHang(27, "Quận 12", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(28, "Quận 12", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(29, "Quận Gò Vấp", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(30, "Quận Gò Vấp", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(31, "Quận Gò Vấp", "Hỏa Tốc", 10, 1, 1000000));
+		donHangList.add(new DonHang(32, "Quận Gò Vấp", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(33, "Quận Gò Vấp", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(34, "Quận Gò Vấp", "Quan Trọng", 10, 1, 1000000));
+		donHangList.add(new DonHang(35, "Quận Tân Bình", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(36, "Thành Phố Thủ Đức", "Thường", 10, 1, 1000000));
+		donHangList.add(new DonHang(37, "Thành Phố Thủ Đức", "Thường", 10, 1, 1000000));
+
+		NSX nhaSanXuat = new NSX("Nhà sản xuất nước ngọt", new QuanLyDon(donHangList), new QuanLyXe(xeList),
+				danhSachTramGiao, map);
+		new Controller(new Model(nhaSanXuat), new View());
 	}
 }

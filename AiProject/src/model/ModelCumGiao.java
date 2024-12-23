@@ -58,29 +58,29 @@ public class ModelCumGiao {
 
 //	trạm gần nhất
 	public TramGiao timTramGanNhat(TramGiao tramHienTai, List<KhoangCachCacTram> danhSachKC,
-            List<TramGiao> tramDaPhanCum) {
-TramGiao tramGanNhat = null;
+			List<TramGiao> tramDaPhanCum) {
+		TramGiao tramGanNhat = null;
 
 // Duyệt qua danh sách KhoangCachCacTram để tìm trạm chưa phân cụm gần trạm hiện tại
-for (KhoangCachCacTram kc : danhSachKC) {
-TramGiao tramXet = null;
+		for (KhoangCachCacTram kc : danhSachKC) {
+			TramGiao tramXet = null;
 
 // Xác định trạm đối diện với tramHienTai
-if (kc.getTramXuatPhat().equals(tramHienTai)) {
-tramXet = kc.getTramDich();
-} else if (kc.getTramDich().equals(tramHienTai)) {
-tramXet = kc.getTramXuatPhat();
-}
+			if (kc.getTramXuatPhat().equals(tramHienTai)) {
+				tramXet = kc.getTramDich();
+			} else if (kc.getTramDich().equals(tramHienTai)) {
+				tramXet = kc.getTramXuatPhat();
+			}
 
 // Kiểm tra xem trạm đã được phân cụm chưa
-if (tramXet != null && !tramDaPhanCum.contains(tramXet)) {
-tramGanNhat = tramXet;
-break;  // Chọn trạm đầu tiên chưa phân cụm
-}
-}
+			if (tramXet != null && !tramDaPhanCum.contains(tramXet)) {
+				tramGanNhat = tramXet;
+				break; // Chọn trạm đầu tiên chưa phân cụm
+			}
+		}
 
-return tramGanNhat;
-}
+		return tramGanNhat;
+	}
 
 //trạm đã được phân vào cụm
 	public boolean TramDaPhanCum(TramGiao tramgiao, List<TramGiao> tramDaPhanCum) {
@@ -179,6 +179,7 @@ return tramGanNhat;
 		}
 
 	}
+
 	private void xuLyHangThua(Map<TramGiao, SoLuongVaKhoiLuong> map, List<TramGiao> tramDaPhanCum) {
 //		for (Map.Entry<TramGiao, SoLuongVaKhoiLuong> entry : map.entrySet()) {
 //			TramGiao tramGiao = entry.getKey();

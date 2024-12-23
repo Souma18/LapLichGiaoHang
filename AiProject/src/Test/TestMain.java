@@ -115,6 +115,8 @@ public class TestMain {
 		donHangList.add(new DonHang(35, "Quận Tân Bình", "Thường", 10, 1, 1000000));
 		donHangList.add(new DonHang(36, "Thành Phố Thủ Đức", "Thường", 10, 1, 1000000));
 		donHangList.add(new DonHang(37, "Thành Phố Thủ Đức", "Thường", 10, 1, 1000000));
+		
+		
 		NSX nhaSanXuat = new NSX("Nhà sản xuất nước ngọt", new QuanLyDon(donHangList), new QuanLyXe(xeList),
 				danhSachTramGiao, map);
 		new Controller(new Model(nhaSanXuat), new View());
