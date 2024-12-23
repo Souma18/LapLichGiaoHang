@@ -3,6 +3,7 @@
 /Test/
 /view/
 /data/
+<<<<<<< HEAD
 /model/
 =======
 <<<<<<< HEAD
@@ -16,3 +17,8 @@
 /findingPath/
 /view/
 >>>>>>> b7de668949db08b3a56020304cdb1fc1f96b9be1
+=======
+/Test/
+/model/
+/view/
+>>>>>>> 41afcf74882f23eab6bca834732e8b2c087b188f

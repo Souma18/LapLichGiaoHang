@@ -295,6 +295,7 @@ public class Controller {
 			// biển số tăng dần từ 1001
 			xeList.add(new Xe(i, bienSo, sucChuaToiDa, soDonToiDa));
 		}
+
 		List<TramGiao> danhSachTramGiao = new ArrayList<TramGiao>();
 		TramGiao batDau = new TramGiao(111, "Nhà sản xuất nước ngọt", 11111, new ToaDo(8, 6));
 		TramGiao quan1 = new TramGiao(1, "Quận 1", 100000, new ToaDo(6, 7));
