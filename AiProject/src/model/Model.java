@@ -69,9 +69,9 @@ public class Model {
 		}
 		return null;
 	}
-public void capNhatNSX() {
-	nsx.capNhatDonHangChoXe(xepHangLenXe());
-	nsx.CapNhatDonChoTram();
-}
-}
 
+	public void capNhatNSX() {
+		nsx.capNhatDonHangChoXe(xepHangLenXe());
+		nsx.CapNhatDonChoTram();
+	}
+}

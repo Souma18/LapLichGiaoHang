@@ -120,4 +120,23 @@ public class CumGiao {
 			}
 		}
 	}
+
+	// Trả về tổng giá trị các đơn hàng trong xe thuộc một cụm
+	public double getGiaTriCum() {
+		double tongGiaTri = 0.0;
+
+		// Duyệt qua danh sách xe trong cụm
+		for (Xe xe : listXe) {
+			// Lấy danh sách đơn hàng trên xe
+			List<DonHang> dsDonHang = xe.getDsDonHang();
+
+			// Tính tổng giá trị của các đơn hàng
+			for (DonHang donHang : dsDonHang) {
+				tongGiaTri += donHang.getGiaTri();
+			}
+		}
+
+		return tongGiaTri;
+	}
+
 }

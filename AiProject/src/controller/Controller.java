@@ -72,7 +72,7 @@ public class Controller {
 				});
 				// Xóa dấu phẩy thừa ở cuối
 				if (!cum.getListTram().isEmpty()) {
-					data.setLength(data.length() - 2); 
+					data.setLength(data.length() - 2);
 					// Xóa 2 ký tự cuối (", ")
 				}
 				data.append("\n");
@@ -108,8 +108,9 @@ public class Controller {
 			tuyenDuong.forEach(tram -> {
 				buiBuffer.append(tram.getTenTram()).append(", ");
 			});
-			views.addRowToRightPanel("Cum " + entry.getKey().getId(), "xe " + xe.getId(), xe.getSoLuongDon(),
-					buiBuffer);
+			views.addRowToRightPanel("Cum " + entry.getKey().getId(), "xe " + xe.getId(), xe.getSoLuongDon(), buiBuffer,
+					entry.getKey().getGiaTriCum());
+
 //			String cum, String xeId, int soLuongHang, String tuyenDuong
 		}
 	}
@@ -151,7 +152,7 @@ public class Controller {
 
 		dialog.add(new JLabel("Chi tiết tuyến đường"), BorderLayout.NORTH);
 
-		//hiển thị chi tiết tuyến đường
+		// hiển thị chi tiết tuyến đường
 		JTextArea textArea = new JTextArea(tuyenDuong);
 		textArea.setEditable(false);
 		textArea.setLineWrap(true);
