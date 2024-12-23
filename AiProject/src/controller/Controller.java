@@ -367,18 +367,6 @@ public class Controller {
 		khoangCachList.add(new KhoangCachCacTram(tram7, tram8, 30, 850.0));
 		khoangCachList.add(new KhoangCachCacTram(tram8, tram5, 30, 850.0));
 
-		khoangCachList.add(new KhoangCachCacTram(tram7, tram9, 45.0, 800.0));
-		khoangCachList.add(new KhoangCachCacTram(tram9, tram13, 45.0, 800.0));
-		khoangCachList.add(new KhoangCachCacTram(tram13, tram7, 45.0, 800.0));
-		khoangCachList.add(new KhoangCachCacTram(tram9, tram10, 11.0, 500.0));
-		khoangCachList.add(new KhoangCachCacTram(tram10, tram11, 11.0, 500.0));
-		khoangCachList.add(new KhoangCachCacTram(tram10, tram12, 11.0, 500.0));
-		khoangCachList.add(new KhoangCachCacTram(tram10, tram12, 11.0, 500.0));
-		khoangCachList.add(new KhoangCachCacTram(tram10, tram12, 11.0, 500.0));
-		khoangCachList.add(new KhoangCachCacTram(tram12, tram6, 50.0, 500.0));
-		khoangCachList.add(new KhoangCachCacTram(tram6, tram12, 50.0, 500.0));
-//		khoangCachList.add(new KhoangCachCacTram(tram11, tram3, 70.0, 500.0));
-//		khoangCachList.add(new KhoangCachCacTram(tram11, tram7, 50.0, 500.0));
 		NSX nsx = new NSX("Nhà sản xuất hàng hóa", quanLyDon, quanLyXe, danhSachTram, khoangCachList);
 //run
 		new Controller(new Model(nsx), new View());
