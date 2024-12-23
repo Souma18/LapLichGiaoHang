@@ -1,5 +1,18 @@
+<<<<<<< HEAD
 /controller/
 /Test/
 /view/
 /data/
 /model/
+=======
+<<<<<<< HEAD
+/controller/
+=======
+/model/
+/data/
+/controller/
+/Test/
+>>>>>>> 9386b3eac4163c1990ec351abecebb08d64f403a
+/findingPath/
+/view/
+>>>>>>> b7de668949db08b3a56020304cdb1fc1f96b9be1
