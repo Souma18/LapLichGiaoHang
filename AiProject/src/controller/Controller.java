@@ -5,10 +5,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -74,9 +72,10 @@ public class Controller {
 				});
 				// Xóa dấu phẩy thừa ở cuối
 				if (!cum.getListTram().isEmpty()) {
-					data.setLength(data.length() - 2); // Xóa 2 ký tự cuối (", ")
+					data.setLength(data.length() - 2); 
+					// Xóa 2 ký tự cuối (", ")
 				}
-				data.append("\n"); // Xuống dòng sau mỗi cụm
+				data.append("\n");
 			});
 			views.updateLeftPanel(data.toString());
 		}
@@ -103,12 +102,14 @@ public class Controller {
 		Map<CumGiao, List<TuyenDuongDuocTaoRa>> map = models.tuyenduong();
 		List<CumGiao> cumGiaoList = models.getListCumGiao();
 		for (Map.Entry<CumGiao, List<TuyenDuongDuocTaoRa>> entry : map.entrySet()) {
+			List<TramGiao> tuyenDuong = entry.getValue().get(0).getTuyenDuong();
+			Xe xe = entry.getValue().get(0).getXe();
 			StringBuffer buiBuffer = new StringBuffer();
-			entry.getValue().get(0).getTuyenDuong().forEach(tram -> {
+			tuyenDuong.forEach(tram -> {
 				buiBuffer.append(tram.getTenTram()).append(", ");
 			});
-			views.addRowToRightPanel("Cum " + entry.getKey().getId(), "xe " + entry.getValue().get(0).getXe().getId(),
-					0, buiBuffer);
+			views.addRowToRightPanel("Cum " + entry.getKey().getId(), "xe " + xe.getId(), xe.getSoLuongDon(),
+					buiBuffer);
 //			String cum, String xeId, int soLuongHang, String tuyenDuong
 		}
 	}
@@ -145,19 +146,18 @@ public class Controller {
 
 	private void hienThiChiTietTuyenDuong2(String tuyenDuong) {
 		JDialog dialog = new JDialog(views, "Chi tiết tuyến đường", true);
-		dialog.setSize(800, 600); // Kích thước đủ lớn để hiển thị cả danh sách và bản đồ
+		dialog.setSize(1000, 600);
 		dialog.setLayout(new BorderLayout());
 
-		// Thêm label phía trên
 		dialog.add(new JLabel("Chi tiết tuyến đường"), BorderLayout.NORTH);
 
-		// TextArea hiển thị chi tiết tuyến đường
+		//hiển thị chi tiết tuyến đường
 		JTextArea textArea = new JTextArea(tuyenDuong);
 		textArea.setEditable(false);
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 		JScrollPane textScrollPane = new JScrollPane(textArea);
-		textScrollPane.setPreferredSize(new java.awt.Dimension(250, 600)); // Kích thước cố định cho danh sách
+		textScrollPane.setPreferredSize(new java.awt.Dimension(250, 600));
 		dialog.add(textScrollPane, BorderLayout.WEST);
 
 		// JPanel để vẽ biểu đồ
@@ -202,6 +202,7 @@ public class Controller {
 		dialog.setVisible(true);
 	}
 
+<<<<<<< HEAD
 	public static void main(String[] args) {
 		
 
@@ -322,4 +323,6 @@ public class Controller {
 //		map.add(new KhoangCachCacTram(tram1, batDau, 5.0, 300.0));
 
 	}
+=======
+>>>>>>> 9386b3eac4163c1990ec351abecebb08d64f403a
 }

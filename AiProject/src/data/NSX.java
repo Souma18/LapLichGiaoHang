@@ -1,11 +1,10 @@
 package data;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
-import model.XuLy;
 
 public class NSX {
 	private String TenNSX;
@@ -109,5 +108,22 @@ public class NSX {
 
 	public int tongXLDonXe() {
 		return quanLyXe.tongXLDonXe();
+	}
+	public List<Xe> getListXe() {
+		return quanLyXe.getListXe();
+	}
+	public void capNhatDonHangChoXe(Map<Xe,List<DonHang>> map)
+	{
+		for (Entry<Xe, List<DonHang>> entry : map.entrySet()) {
+			int key = entry.getKey().getId();
+			List<DonHang> val = entry.getValue();
+			capNhatDonHangChoXe(key,val);
+		}
+	}
+	public void capNhatDonHangChoXe(int id,List<DonHang> donHangs) {
+		for (Xe xe : getListXe()) {
+			if(id==xe.getId())
+				xe.setDsDonHang(donHangs);
+		}
 	}
 }

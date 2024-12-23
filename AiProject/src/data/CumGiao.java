@@ -9,54 +9,30 @@ public class CumGiao {
 	private int id;
 	private List<TramGiao> listTram;
 	private List<Xe> listXe;
-//		private TuyenDuong tuyenDuong;
 	private double khoiLuongDon;
+
 	public CumGiao(int id) {
 		super();
 		this.id = id;
 		this.listTram = new ArrayList<TramGiao>();
 		this.listXe = new ArrayList<Xe>();
-//			this.tuyenDuong = new TuyenDuong();
 		this.khoiLuongDon = 0;
 	}
-//test
-	
+
 	public int getId() {
 		return id;
 	}
 
 	public CumGiao(int id, List<TramGiao> listTram, List<Xe> listXe) {
-	super();
-	this.id = id;
-	this.listTram = listTram;
-	this.listXe = listXe;
-}
+		super();
+		this.id = id;
+		this.listTram = listTram;
+		this.listXe = listXe;
+	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
-
-//		public TuyenDuong getTuyenDuong() {
-//			return tuyenDuong;
-//		}
-	//
-//		public void setTuyenDuong(TuyenDuong tuyenDuong) {
-//			this.tuyenDuong = tuyenDuong;
-//		}
-
-//		public void setTuyenDuong(List<KhoangCachCacTram> kc) {
-//			List<KhoangCachCacTram> TuyenCum = new ArrayList<KhoangCachCacTram>();
-//			for (TramGiao tramGiao : listTram) {
-//				for (KhoangCachCacTram khoangCachCacTram : kc) {
-//					if (!TuyenCum.contains(khoangCachCacTram)) {
-//						if (khoangCachCacTram.getTramDich().equals(tramGiao)
-//								|| khoangCachCacTram.getTramXuatPhat().equals(tramGiao)) {
-//							TuyenCum.add(khoangCachCacTram);
-//						}
-//					}
-//				}
-//			}
-//			this.tuyenDuong = new TuyenDuong(TuyenCum);
-//		}
 
 	public double getKhoiLuongDon() {
 		double khoiluong = 0;
@@ -127,7 +103,7 @@ public class CumGiao {
 	}
 
 	public TramGiao getTram(String tenTram) {
-		for (TramGiao tramGiao : listTram) {
+		for (TramGiao tramGiao : getListTram()) {
 			if (tenTram.equals(tramGiao.getTenTram())) {
 				return tramGiao;
 			}
